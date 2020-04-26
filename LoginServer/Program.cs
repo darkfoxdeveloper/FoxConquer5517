@@ -43,7 +43,7 @@ namespace LoginServer
                 } else
                 {
                     var parser = new FileIniDataParser();
-                    IniData data = parser.ReadFile(Environment.CurrentDirectory + @"\Shell.ini");
+                    IniData data = parser.ReadFile(Environment.CurrentDirectory + @"\Login.cfg");
                     ServerKernel.NewConfigReader = data;
                 }
             }
