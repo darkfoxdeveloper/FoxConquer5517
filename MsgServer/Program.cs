@@ -83,7 +83,7 @@ namespace MsgServer
             Console.WriteLine();
             ServerKernel.Log.SaveLog("Initializing game server...", true);
 
-             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 // read the configuration file
                 ServerKernel.ConfigReader = new IniFileName(Environment.CurrentDirectory + @"\Shell.ini");

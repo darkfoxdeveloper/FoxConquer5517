@@ -9,14 +9,15 @@
 // Last Edit: 2016/11/23 10:20
 // Created: 2016/11/23 09:58
 
-using System;
-using System.Collections.Concurrent;
 using DB;
+using IniParser.Model;
 using LoginServer.Network;
 using LoginServer.Network.LoginServer;
 using LoginServer.Network.MsgServer;
 using LoginServer.Structures;
 using ServerCore.Common;
+using System;
+using System.Collections.Concurrent;
 
 namespace LoginServer
 {
@@ -55,6 +56,7 @@ namespace LoginServer
         /// The Ini Parser used to read the configuration file from the LoginServer.
         /// </summary>
         public static IniFileName ConfigReader;
+        public static IniData NewConfigReader;
 
         /// <summary>
         /// The logger class used to write exceptions or errors thrown by the server.

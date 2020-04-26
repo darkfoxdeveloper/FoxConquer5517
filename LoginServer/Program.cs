@@ -12,8 +12,12 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
+using Antlr.Runtime;
 using DB;
+using IniParser;
+using IniParser.Model;
 using LoginServer.Network.LoginServer;
 using LoginServer.Network.MsgServer;
 using LoginServer.Threading;
@@ -33,7 +37,15 @@ namespace LoginServer
 
             try
             {
-                ServerKernel.ConfigReader = new IniFileName(Environment.CurrentDirectory + @"\Login.cfg");
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    ServerKernel.ConfigReader = new IniFileName(Environment.CurrentDirectory + @"\Login.cfg");
+                } else
+                {
+                    var parser = new FileIniDataParser();
+                    IniData data = parser.ReadFile(Environment.CurrentDirectory + @"\Shell.ini");
+                    ServerKernel.NewConfigReader = data;
+                }
             }
             catch (Exception ex)
             {
@@ -79,7 +91,13 @@ namespace LoginServer
 
         private static void ServerStartup()
         {
-            BlowfishCipher.InitialKey = Encoding.ASCII.GetBytes(ServerKernel.ConfigReader.GetEntryValue("Blowfish", "Key").ToString());
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                BlowfishCipher.InitialKey = Encoding.ASCII.GetBytes(ServerKernel.ConfigReader.GetEntryValue("Blowfish", "Key").ToString());
+            } else
+            {
+                BlowfishCipher.InitialKey = Encoding.ASCII.GetBytes(ServerKernel.NewConfigReader["Blowfish"]["Key"]);
+            }
 
             ServerKernel.Log.SaveLog("Checking database...", true, "Login_Server");
             try
@@ -96,7 +114,13 @@ namespace LoginServer
             }
 
             ServerKernel.Log.SaveLog("Reading configuration file...", true, "Login_Server");
-            ServerKernel.LoginPort = int.Parse(ServerKernel.ConfigReader.GetEntryValue("ServerConfig", "LISTEN_PORT").ToString());
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                ServerKernel.LoginPort = int.Parse(ServerKernel.ConfigReader.GetEntryValue("ServerConfig", "LISTEN_PORT").ToString());
+            } else
+            {
+                ServerKernel.LoginPort = int.Parse(ServerKernel.NewConfigReader["ServerConfig"]["LISTEN_PORT"]);
+            }
 
             ServerKernel.Log.SaveLog("Starting Server...", true, "Login_Server");
             try
