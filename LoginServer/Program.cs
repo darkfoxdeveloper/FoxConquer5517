@@ -289,7 +289,7 @@ namespace LoginServer
 
         static void CheckConfigurationFile()
         {
-            string szPath = Environment.CurrentDirectory + @"\";
+            string szPath = Environment.CurrentDirectory + Path.DirectorySeparatorChar;
             if (!File.Exists(szPath + "Login.cfg"))
             {
                 Console.WriteLine("The file Login.cfg has not been found. The system will guide you to create a new valid one.");
