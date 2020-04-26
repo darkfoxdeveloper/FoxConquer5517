@@ -1419,7 +1419,7 @@ namespace MsgServer
                             ServerKernel.ArenaRecord.TryAdd(arena.PlayerIdentity, new QualifierRankObj(arena));
                 }
 
-                IniFileName pReader = new IniFileName(Environment.CurrentDirectory + @"\ini\HonorRewards.ini");
+                IniFileName pReader = new IniFileName(Path.Combine(Environment.CurrentDirectory, "ini", "HonorRewards.ini"));
                 foreach (var pos in pReader.GetEntryNames("Rewards"))
                 {
                     IHonorReward rew = new IHonorReward
@@ -1435,7 +1435,7 @@ namespace MsgServer
                     ServerKernel.HonorRewards.Add(rew.Ranking, rew);
                 }
 
-                StreamReader reader = new StreamReader(Environment.CurrentDirectory + @"\ini\HonorShop.ini");
+                StreamReader reader = new StreamReader(Path.Combine(Environment.CurrentDirectory, "ini", "HonorShop.ini"));
                 string line = string.Empty;
                 while ((line = reader.ReadLine()) != null)
                 {
@@ -1460,7 +1460,7 @@ namespace MsgServer
                         ServerKernel.Monsters.Add(mob.Id, mob);
                 }
 
-                IniFileName quenchRule = new IniFileName(Environment.CurrentDirectory + @"\ini\QuenchDropRule.ini");
+                IniFileName quenchRule = new IniFileName(Path.Combine(Environment.CurrentDirectory, "ini", "QuenchDropRule.ini"));
                 foreach (var szMobId in quenchRule.GetSectionNames())
                 {
                     uint idMob = 0;
