@@ -95,6 +95,7 @@ namespace MsgServer.Structures.World
                                + Path.Replace(".cqm", ".dmap"));
                 } else
                 {
+                    Console.WriteLine("Loading DMap path: " + Path); // testing
                     return Convert(dmapLocationPathNoWin);
                 }
             }
@@ -114,7 +115,6 @@ namespace MsgServer.Structures.World
             {
                 // Initialization File Streams:
                 string mapPath = System.IO.Path.Combine(path);
-                Console.WriteLine("Loading DMap path: " + mapPath); // testing
                 FileStream dmapStream = File.OpenRead(mapPath);
                 var dmapReader = new BinaryReader(dmapStream);
                 dmapReader.BaseStream.Seek(0x10CL, SeekOrigin.Begin);
