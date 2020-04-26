@@ -11,6 +11,7 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
@@ -99,7 +100,7 @@ namespace MsgServer
             } else
             {
                 var parser = new FileIniDataParser();
-                IniData data = parser.ReadFile(Environment.CurrentDirectory + @"\Shell.ini");
+                IniData data = parser.ReadFile(Path.Combine(Environment.CurrentDirectory, "Shell.ini"));
                 ServerKernel.LoginServerAddress = data["AccountServer"]["ACCOUNT_IP"];
                 ServerKernel.ServerName = data["AccountServer"]["SERVERNAME"];
                 ServerKernel.LoginServerPort = int.Parse(data["AccountServer"]["ACCOUNT_PORT"]);
