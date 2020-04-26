@@ -113,7 +113,7 @@ namespace MsgServer.Structures.World
             try
             {
                 // Initialization File Streams:
-                FileStream dmapStream = File.OpenRead(path);
+                FileStream dmapStream = File.OpenRead(System.IO.Path.Combine(path));
                 var dmapReader = new BinaryReader(dmapStream);
                 dmapReader.BaseStream.Seek(0x10CL, SeekOrigin.Begin);
 
