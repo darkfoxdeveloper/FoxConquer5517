@@ -54,21 +54,14 @@ namespace MsgServer.Structures.World
             try
             {
                 // If the file exists, load the file. Else, convert the file.
-                string mapLocationPathNoWin = System.IO.Path.Combine(Environment.CurrentDirectory, "Maps", Path);
-                string dmapLocationPathNoWin = System.IO.Path.Combine(Environment.CurrentDirectory, "DMaps", Path.Replace(".cqm", ".dmap"));
+                string mapLocationPath = System.IO.Path.Combine(Environment.CurrentDirectory, "Maps", Path);
+                string dmapLocationPath = System.IO.Path.Combine(Environment.CurrentDirectory, "DMaps", Path.Replace(".cqm", ".dmap"));
                 bool existFile = false;
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    existFile = File.Exists(Environment.CurrentDirectory + Database.MAPS_LOCATION + Path);
-                } else
-                {
-                    existFile = File.Exists(mapLocationPathNoWin);
-                }
+                existFile = File.Exists(mapLocationPath);
                 if (existFile)
                 {
                     // Initialization File Streams:
-                    var stream = new MemoryStream(File.ReadAllBytes(
-                        Environment.CurrentDirectory + Database.MAPS_LOCATION + Path), false);
+                    var stream = new MemoryStream(File.ReadAllBytes(mapLocationPath), false);
                     var reader = new BinaryReader(stream);
 
                     // Initialize the floor of the map:
@@ -95,7 +88,7 @@ namespace MsgServer.Structures.World
                                + Path.Replace(".cqm", ".dmap"));
                 } else
                 {
-                    return Convert(dmapLocationPathNoWin);
+                    return Convert(dmapLocationPath);
                 }
             }
             catch (Exception e) { Console.WriteLine(e); }
