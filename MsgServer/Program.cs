@@ -17,6 +17,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using DB.Entities;
 using DB.Repositories;
+using IniParser;
+using IniParser.Model;
 using MsgServer.Network.GameServer;
 using MsgServer.Structures.Actions;
 using MsgServer.Structures.Items;
@@ -81,17 +83,33 @@ namespace MsgServer
             Console.WriteLine();
             ServerKernel.Log.SaveLog("Initializing game server...", true);
 
-            // read the configuration file
-            ServerKernel.ConfigReader = new IniFileName(Environment.CurrentDirectory + @"\Shell.ini");
-            ServerKernel.LoginServerAddress = ServerKernel.ConfigReader.GetEntryValue("AccountServer", "ACCOUNT_IP").ToString();
-            ServerKernel.ServerName = ServerKernel.ConfigReader.GetEntryValue("AccountServer", "SERVERNAME").ToString();
-            ServerKernel.LoginServerPort = int.Parse(ServerKernel.ConfigReader.GetEntryValue("AccountServer", "ACCOUNT_PORT").ToString());
-            ServerKernel.MaxOnlinePlayer = ushort.Parse(ServerKernel.ConfigReader.GetEntryValue("AccountServer", "MAXLOGINTABLESIZE").ToString());
-            ServerKernel.Username = ServerKernel.ConfigReader.GetEntryValue("AccountServer", "LOGINNAME").ToString();
-            ServerKernel.Password = ServerKernel.ConfigReader.GetEntryValue("AccountServer", "PASSWORD").ToString();
-            ServerKernel.TransferKey = ServerKernel.ConfigReader.GetEntryValue("TransferKey", "Key").ToString();
-            ServerKernel.TransferSalt = ServerKernel.ConfigReader.GetEntryValue("TransferKey", "Salt").ToString();
-            ServerKernel.Blowfish = ServerKernel.ConfigReader.GetEntryValue("Blowfish", "Key").ToString();
+             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                // read the configuration file
+                ServerKernel.ConfigReader = new IniFileName(Environment.CurrentDirectory + @"\Shell.ini");
+                ServerKernel.LoginServerAddress = ServerKernel.ConfigReader.GetEntryValue("AccountServer", "ACCOUNT_IP").ToString();
+                ServerKernel.ServerName = ServerKernel.ConfigReader.GetEntryValue("AccountServer", "SERVERNAME").ToString();
+                ServerKernel.LoginServerPort = int.Parse(ServerKernel.ConfigReader.GetEntryValue("AccountServer", "ACCOUNT_PORT").ToString());
+                ServerKernel.MaxOnlinePlayer = ushort.Parse(ServerKernel.ConfigReader.GetEntryValue("AccountServer", "MAXLOGINTABLESIZE").ToString());
+                ServerKernel.Username = ServerKernel.ConfigReader.GetEntryValue("AccountServer", "LOGINNAME").ToString();
+                ServerKernel.Password = ServerKernel.ConfigReader.GetEntryValue("AccountServer", "PASSWORD").ToString();
+                ServerKernel.TransferKey = ServerKernel.ConfigReader.GetEntryValue("TransferKey", "Key").ToString();
+                ServerKernel.TransferSalt = ServerKernel.ConfigReader.GetEntryValue("TransferKey", "Salt").ToString();
+                ServerKernel.Blowfish = ServerKernel.ConfigReader.GetEntryValue("Blowfish", "Key").ToString();
+            } else
+            {
+                var parser = new FileIniDataParser();
+                IniData data = parser.ReadFile(Environment.CurrentDirectory + @"\Shell.ini");
+                ServerKernel.LoginServerAddress = data["AccountServer"]["ACCOUNT_IP"];
+                ServerKernel.ServerName = data["AccountServer"]["SERVERNAME"];
+                ServerKernel.LoginServerPort = int.Parse(data["AccountServer"]["ACCOUNT_PORT"]);
+                ServerKernel.MaxOnlinePlayer = ushort.Parse(data["AccountServer"]["MAXLOGINTABLESIZE"]);
+                ServerKernel.Username = data["AccountServer"]["LOGINNAME"];
+                ServerKernel.Password = data["AccountServer"]["PASSWORD"];
+                ServerKernel.TransferKey = data["TransferKey"]["Key"];
+                ServerKernel.TransferSalt = data["TransferKey"]["Salt"];
+                ServerKernel.Blowfish = data["TransferKey"]["Key"];
+            }
 
             ServerKernel.Log.SaveLog("Initializing blowfish", true);
             // set the blowfish key before anything else
