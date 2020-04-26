@@ -10,8 +10,12 @@
 // Created: 2016/12/29 21:33
 
 using System;
+using System.IO;
+using System.Runtime.InteropServices;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using IniParser;
+using IniParser.Model;
 using NHibernate;
 using ServerCore.Common;
 
@@ -58,39 +62,44 @@ namespace DB
                 GameDatabase = CreateSessionFactory();
         }
 
-        public SessionFactory(string szGame, string szLogin, bool bConfirm)
+        public SessionFactory(string szGame, string szLogin)
         {
-            var iniFile = new IniFileName(Environment.CurrentDirectory + @"\" + szGame);
-            _hostname = iniFile.GetEntryValue("MySQL", "Hostname").ToString();
-            _username = iniFile.GetEntryValue("MySQL", "Username").ToString();
-            _password = iniFile.GetEntryValue("MySQL", "Password").ToString();
-            _database = iniFile.GetEntryValue("MySQL", "Database").ToString();
-            GameDatabase = CreateSessionFactory();
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                var iniFile = new IniFileName(Environment.CurrentDirectory + @"\" + szGame);
+                _hostname = iniFile.GetEntryValue("MySQL", "Hostname").ToString();
+                _username = iniFile.GetEntryValue("MySQL", "Username").ToString();
+                _password = iniFile.GetEntryValue("MySQL", "Password").ToString();
+                _database = iniFile.GetEntryValue("MySQL", "Database").ToString();
+                GameDatabase = CreateSessionFactory();
 
-            iniFile = new IniFileName(Environment.CurrentDirectory + @"\" + szLogin);
-            _hostname = iniFile.GetEntryValue("MySQL", "Hostname").ToString();
-            _username = iniFile.GetEntryValue("MySQL", "Username").ToString();
-            _password = iniFile.GetEntryValue("MySQL", "Password").ToString();
-            _database = iniFile.GetEntryValue("MySQL", "Database").ToString();
-            _port = int.Parse(iniFile.GetEntryValue("MySQL", "Port").ToString());
-            LoginDatabase = CreateLoginFactory();
-        }
-
-        public SessionFactory(string szGame, string szEvent)
-        {
-            var iniFile = new IniFileName(Environment.CurrentDirectory + @"\" + szGame);
-            _hostname = iniFile.GetEntryValue("MySQL", "Hostname").ToString();
-            _username = iniFile.GetEntryValue("MySQL", "Username").ToString();
-            _password = iniFile.GetEntryValue("MySQL", "Password").ToString();
-            _database = iniFile.GetEntryValue("MySQL", "Database").ToString();
-            GameDatabase = CreateSessionFactory();
-
-            iniFile = new IniFileName(Environment.CurrentDirectory + @"\" + szEvent);
-            _hostname = iniFile.GetEntryValue("MySQL", "Hostname").ToString();
-            _username = iniFile.GetEntryValue("MySQL", "Username").ToString();
-            _password = iniFile.GetEntryValue("MySQL", "Password").ToString();
-            _database = iniFile.GetEntryValue("MySQL", "Database").ToString();
-            EventDatabase = CreateSessionFactory();
+                iniFile = new IniFileName(Environment.CurrentDirectory + @"\" + szLogin);
+                _hostname = iniFile.GetEntryValue("MySQL", "Hostname").ToString();
+                _username = iniFile.GetEntryValue("MySQL", "Username").ToString();
+                _password = iniFile.GetEntryValue("MySQL", "Password").ToString();
+                _database = iniFile.GetEntryValue("MySQL", "Database").ToString();
+                _port = int.Parse(iniFile.GetEntryValue("MySQL", "Port").ToString());
+                LoginDatabase = CreateLoginFactory();
+            } else
+            {
+                var loginIniFile = new FileIniDataParser();
+                var gameIniFile = new FileIniDataParser();
+                string szGamePath = Path.Combine(Environment.CurrentDirectory, szGame);
+                string szLoginPath = Path.Combine(Environment.CurrentDirectory, szLogin);
+                IniData LoginData = loginIniFile.ReadFile(szLoginPath);
+                IniData GameData = gameIniFile.ReadFile(szGamePath);
+                _hostname = GameData["MySQL"]["Hostname"];
+                _username = GameData["MySQL"]["Username"];
+                _password = GameData["MySQL"]["Password"];
+                _database = GameData["MySQL"]["Database"];
+                GameDatabase = CreateSessionFactory();
+                _hostname = LoginData["MySQL"]["Hostname"];
+                _username = LoginData["MySQL"]["Username"];
+                _password = LoginData["MySQL"]["Password"];
+                _database = LoginData["MySQL"]["Database"];
+                _port = int.Parse(LoginData["MySQL"]["Port"]);
+                LoginDatabase = CreateLoginFactory();
+            }
         }
 
         /// <summary>

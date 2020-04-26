@@ -79,7 +79,7 @@ namespace MsgServer
         {
             try
             {
-                ServerKernel.MySqlFactory = new SessionFactory("Shell.ini", "Login.cfg", true);
+                ServerKernel.MySqlFactory = new SessionFactory("Shell.ini", "Login.cfg");
 
                 Characters = new CharacterRepository();
                 ItemAddition = new ItemAdditionRepository();
