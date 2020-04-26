@@ -21,6 +21,8 @@ using DB;
 using DB.Entities;
 using DB.Repositories;
 using FluentNHibernate.Cfg;
+using IniParser;
+using IniParser.Model;
 using MsgServer.Structures;
 using MsgServer.Structures.Entities;
 using MsgServer.Structures.Events;
@@ -1419,20 +1421,47 @@ namespace MsgServer
                             ServerKernel.ArenaRecord.TryAdd(arena.PlayerIdentity, new QualifierRankObj(arena));
                 }
 
-                IniFileName pReader = new IniFileName(Path.Combine(Environment.CurrentDirectory, "ini", "HonorRewards.ini"));
-                foreach (var pos in pReader.GetEntryNames("Rewards"))
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
-                    IHonorReward rew = new IHonorReward
+                    IniFileName pReader = new IniFileName(Path.Combine(Environment.CurrentDirectory, "ini", "HonorRewards.ini"));
+                    foreach (var pos in pReader.GetEntryNames("Rewards"))
                     {
-                        Ranking = ushort.Parse(pos.ToString())
-                    };
-                    string[] split = pReader.GetEntryValue("Rewards", pos).ToString().Split('/');
-                    if (split.Length < 2)
-                        continue;
-                    rew.DailyHonor = uint.Parse(split[0]);
-                    rew.WeeklyHonor = uint.Parse(split[1]);
+                        IHonorReward rew = new IHonorReward
+                        {
+                            Ranking = ushort.Parse(pos.ToString())
+                        };
+                        string[] split = pReader.GetEntryValue("Rewards", pos).ToString().Split('/');
+                        if (split.Length < 2)
+                            continue;
+                        rew.DailyHonor = uint.Parse(split[0]);
+                        rew.WeeklyHonor = uint.Parse(split[1]);
 
-                    ServerKernel.HonorRewards.Add(rew.Ranking, rew);
+                        ServerKernel.HonorRewards.Add(rew.Ranking, rew);
+                    }
+                } else
+                {
+                    FileIniDataParser honorRewardsParser = new FileIniDataParser();
+                    IniData hRewardsData = honorRewardsParser.ReadFile(Path.Combine(Environment.CurrentDirectory, "ini", "HonorRewards.ini"));
+                    foreach (SectionData section in hRewardsData.Sections)
+                    {
+                        if (section.SectionName == "Rewards")
+                        {
+                            foreach (KeyData key in section.Keys)
+                            {
+                                IHonorReward rew = new IHonorReward
+                                {
+                                    Ranking = ushort.Parse(key.KeyName.ToString())
+                                };
+                                string[] split = key.Value.Split('/');
+                                if (split.Length < 2)
+                                    continue;
+                                rew.DailyHonor = uint.Parse(split[0]);
+                                rew.WeeklyHonor = uint.Parse(split[1]);
+
+                                ServerKernel.HonorRewards.Add(rew.Ranking, rew);
+                            }
+                        }
+                    }
                 }
 
                 StreamReader reader = new StreamReader(Path.Combine(Environment.CurrentDirectory, "ini", "HonorShop.ini"));
@@ -1460,72 +1489,183 @@ namespace MsgServer
                         ServerKernel.Monsters.Add(mob.Id, mob);
                 }
 
-                IniFileName quenchRule = new IniFileName(Path.Combine(Environment.CurrentDirectory, "ini", "QuenchDropRule.ini"));
-                foreach (var szMobId in quenchRule.GetSectionNames())
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
-                    uint idMob = 0;
-                    if (!uint.TryParse(szMobId, out idMob))
+                    IniFileName quenchRule = new IniFileName(Path.Combine(Environment.CurrentDirectory, "ini", "QuenchDropRule.ini"));
+                    foreach (var szMobId in quenchRule.GetSectionNames())
                     {
-                        ServerKernel.Log.SaveLog(string.Format("ALERT: QuenchDropRule could not parse mob id: {0}", szMobId), false, LogType.WARNING);
-                        continue;
-                    }
-
-                    DbMonstertype dbMob;
-                    if (!ServerKernel.Monsters.TryGetValue(idMob, out dbMob))
-                    {
-                        ServerKernel.Log.SaveLog(string.Format("ALERT: unexistent monstertype({0}) for droprule", idMob), false, LogType.WARNING);
-                        continue;
-                    }
-
-                    string szName = "";
-                    byte level = 0;
-                    byte tolerance = 0;
-                    byte dropNum = 0;
-                    uint idDefault = 0;
-                    int actionNum = 0;
-
-                    try
-                    {
-                        szName = quenchRule.GetEntryValue(szMobId, "Name").ToString();
-                        level = byte.Parse(quenchRule.GetEntryValue(szMobId, "Level").ToString());
-                        tolerance = byte.Parse(quenchRule.GetEntryValue(szMobId, "LevelTolerance").ToString());
-                        dropNum = byte.Parse(quenchRule.GetEntryValue(szMobId, "DropNum").ToString());
-                        idDefault = uint.Parse(quenchRule.GetEntryValue(szMobId, "DefaultAction").ToString());
-                        actionNum = int.Parse(quenchRule.GetEntryValue(szMobId, "Action").ToString());
-                    }
-                    catch
-                    {
-                        ServerKernel.Log.SaveLog(string.Format("EXCEPTION: could not parse data for drop rule {0}", idMob), false, LogType.EXCEPTION);
-                        continue;
-                    }
-
-                    SpecialDrop pDrop = new SpecialDrop
-                    {
-                        MonsterName = szName,
-                        MonsterIdentity = idMob,
-                        Level = level,
-                        LevelTolerance = tolerance,
-                        DefaultAction = idDefault,
-                        DropNum = dropNum
-                    };
-                    pDrop.Actions = new List<KeyValuePair<uint, ushort>>();
-                    for (int i = 0; i < actionNum; i++)
-                    {
-                        uint idAction = 0;
-                        ushort usChance = 10000;
-                        string[] szInfo = quenchRule.GetEntryValue(szMobId, string.Format("Action{0}", i)).ToString().Split(' ');
-
-                        if (szInfo.Length < 2
-                            || !uint.TryParse(szInfo[0], out idAction)
-                            || !ushort.TryParse(szInfo[1], out usChance))
+                        uint idMob = 0;
+                        if (!uint.TryParse(szMobId, out idMob))
                         {
+                            ServerKernel.Log.SaveLog(string.Format("ALERT: QuenchDropRule could not parse mob id: {0}", szMobId), false, LogType.WARNING);
                             continue;
                         }
 
-                        pDrop.Actions.Add(new KeyValuePair<uint, ushort>(idAction, usChance));
-                    }
+                        DbMonstertype dbMob;
+                        if (!ServerKernel.Monsters.TryGetValue(idMob, out dbMob))
+                        {
+                            ServerKernel.Log.SaveLog(string.Format("ALERT: unexistent monstertype({0}) for droprule", idMob), false, LogType.WARNING);
+                            continue;
+                        }
 
-                    ServerKernel.SpecialDrop.Add(pDrop);
+                        string szName = "";
+                        byte level = 0;
+                        byte tolerance = 0;
+                        byte dropNum = 0;
+                        uint idDefault = 0;
+                        int actionNum = 0;
+
+                        try
+                        {
+                            szName = quenchRule.GetEntryValue(szMobId, "Name").ToString();
+                            level = byte.Parse(quenchRule.GetEntryValue(szMobId, "Level").ToString());
+                            tolerance = byte.Parse(quenchRule.GetEntryValue(szMobId, "LevelTolerance").ToString());
+                            dropNum = byte.Parse(quenchRule.GetEntryValue(szMobId, "DropNum").ToString());
+                            idDefault = uint.Parse(quenchRule.GetEntryValue(szMobId, "DefaultAction").ToString());
+                            actionNum = int.Parse(quenchRule.GetEntryValue(szMobId, "Action").ToString());
+                        }
+                        catch
+                        {
+                            ServerKernel.Log.SaveLog(string.Format("EXCEPTION: could not parse data for drop rule {0}", idMob), false, LogType.EXCEPTION);
+                            continue;
+                        }
+
+                        SpecialDrop pDrop = new SpecialDrop
+                        {
+                            MonsterName = szName,
+                            MonsterIdentity = idMob,
+                            Level = level,
+                            LevelTolerance = tolerance,
+                            DefaultAction = idDefault,
+                            DropNum = dropNum
+                        };
+                        pDrop.Actions = new List<KeyValuePair<uint, ushort>>();
+                        for (int i = 0; i < actionNum; i++)
+                        {
+                            uint idAction = 0;
+                            ushort usChance = 10000;
+                            string[] szInfo = quenchRule.GetEntryValue(szMobId, string.Format("Action{0}", i)).ToString().Split(' ');
+
+                            if (szInfo.Length < 2
+                                || !uint.TryParse(szInfo[0], out idAction)
+                                || !ushort.TryParse(szInfo[1], out usChance))
+                            {
+                                continue;
+                            }
+
+                            pDrop.Actions.Add(new KeyValuePair<uint, ushort>(idAction, usChance));
+                        }
+
+                        ServerKernel.SpecialDrop.Add(pDrop);
+                    }
+                } else
+                {
+                    FileIniDataParser quenchRuleParser = new FileIniDataParser();
+                    IniData quenchRuleData = quenchRuleParser.ReadFile(Path.Combine(Environment.CurrentDirectory, "ini", "QuenchDropRule.ini"));
+                    foreach (SectionData section in quenchRuleData.Sections)
+                    {
+                        foreach (KeyData key in section.Keys)
+                        {
+                            uint idMob = 0;
+                            if (!uint.TryParse(section.SectionName, out idMob))
+                            {
+                                ServerKernel.Log.SaveLog(string.Format("ALERT: QuenchDropRule could not parse mob id: {0}", key.KeyName), false, LogType.WARNING);
+                                continue;
+                            }
+
+                            DbMonstertype dbMob;
+                            if (!ServerKernel.Monsters.TryGetValue(idMob, out dbMob))
+                            {
+                                ServerKernel.Log.SaveLog(string.Format("ALERT: unexistent monstertype({0}) for droprule", idMob), false, LogType.WARNING);
+                                continue;
+                            }
+
+                            string szName = "";
+                            byte level = 0;
+                            byte tolerance = 0;
+                            byte dropNum = 0;
+                            uint idDefault = 0;
+                            int actionNum = 0;
+
+                            try
+                            {
+                                switch (key.KeyName)
+                                {
+                                    case "Name":
+                                        {
+                                            szName = key.Value;
+                                            break;
+                                        }
+                                    case "Level":
+                                        {
+                                            level = byte.Parse(key.Value);
+                                            break;
+                                        }
+                                    case "LevelTolerance":
+                                        {
+                                            tolerance = byte.Parse(key.Value);
+                                            break;
+                                        }
+                                    case "DropNum":
+                                        {
+                                            dropNum = byte.Parse(key.Value);
+                                            break;
+                                        }
+                                    case "DefaultAction":
+                                        {
+                                            idDefault = uint.Parse(key.Value);
+                                            break;
+                                        }
+                                    case "Action":
+                                        {
+                                            actionNum = int.Parse(key.Value);
+                                            break;
+                                        }
+                                }
+                            }
+                            catch
+                            {
+                                ServerKernel.Log.SaveLog(string.Format("EXCEPTION: could not parse data for drop rule {0}", idMob), false, LogType.EXCEPTION);
+                                continue;
+                            }
+
+                            SpecialDrop pDrop = new SpecialDrop
+                            {
+                                MonsterName = szName,
+                                MonsterIdentity = idMob,
+                                Level = level,
+                                LevelTolerance = tolerance,
+                                DefaultAction = idDefault,
+                                DropNum = dropNum
+                            };
+                            pDrop.Actions = new List<KeyValuePair<uint, ushort>>();
+                            for (int i = 0; i < actionNum; i++)
+                            {
+                                uint idAction = 0;
+                                ushort usChance = 10000;
+                                SectionData secData = quenchRuleData.Sections.Where(x => x.SectionName == idMob.ToString()).FirstOrDefault();
+                                if (secData != null)
+                                {
+                                    KeyData kd = secData.Keys.Where(x => x.KeyName == string.Format("Action{0}", i)).FirstOrDefault();
+                                    if (kd != null)
+                                    {
+                                        string[] szInfo = kd.Value.Split(' ');
+
+                                        if (szInfo.Length < 2
+                                            || !uint.TryParse(szInfo[0], out idAction)
+                                            || !ushort.TryParse(szInfo[1], out usChance))
+                                        {
+                                            continue;
+                                        }
+
+                                        pDrop.Actions.Add(new KeyValuePair<uint, ushort>(idAction, usChance));
+                                    }
+                                }
+                            }
+
+                            ServerKernel.SpecialDrop.Add(pDrop);
+                        }
+                    }
                 }
 
                 #endregion
