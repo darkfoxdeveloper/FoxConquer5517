@@ -58,7 +58,9 @@ namespace MsgServer.Threads
                     Thread.Sleep(550);
                 }
             }
+            #pragma warning disable CS0162 // Se detectó código inaccesible
             Console.WriteLine("User Processing Thread exited");
+            #pragma warning restore CS0162 // Se detectó código inaccesible
         }
     }
 }

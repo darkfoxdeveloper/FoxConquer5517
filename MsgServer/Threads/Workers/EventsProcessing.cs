@@ -147,7 +147,9 @@ namespace MsgServer.Threads
                     Thread.Sleep(750);
                 }
             }
+            #pragma warning disable CS0162 // Se detectó código inaccesible
             Console.WriteLine("Game Event Processing Thread exited");
+            #pragma warning restore CS0162 // Se detectó código inaccesible
         }
     }
 }

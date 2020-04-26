@@ -68,7 +68,9 @@ namespace MsgServer.Threads
 
                 Thread.Sleep(threadSleep);
             }
+            #pragma warning disable CS0162 // Se detectó código inaccesible
             Console.WriteLine("Monster AI Processing Thread exited");
+            #pragma warning restore CS0162 // Se detectó código inaccesible
         }
     }
 }

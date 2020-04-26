@@ -5,11 +5,12 @@
 // 
 // Computer User: Felipe Vieira
 // File Created by:  Felipe Vieira Vendramini 
-// zfserver v2.5517 - MsgServer - Generator Processing.cs
-// Last Edit: 2016/12/07 00:36
-// Created: 2016/12/07 00:36
+// zfserver v2.5517 - MsgServer - Battle System Processing.cs
+// Last Edit: 2016/12/07 00:34
+// Created: 2016/12/07 00:34
 
 using System;
+using System.Linq;
 using System.Threading;
 using ServerCore.Common;
 
@@ -17,14 +18,19 @@ namespace MsgServer.Threads
 {
     public static partial class ThreadHandler
     {
-        public static void GeneratorTasks()
+        public static void BattleSystemTasks()
         {
             while (true)
             {
                 try
                 {
-                    foreach (var gen in ServerKernel.Generators)
-                        gen.OnTimer();
+                    if (ServerKernel.Players.Count > 0)
+                    {
+                        foreach (var plr in ServerKernel.Players.Values.ToList().Where(x => x.Character != null))
+                        {
+                            plr.Character.OnBattleTimer();
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -32,10 +38,12 @@ namespace MsgServer.Threads
                 }
                 finally
                 {
-                    Thread.Sleep(500);
+                    Thread.Sleep(200);
                 }
             }
-            Console.WriteLine("Generator Processing Thread exited");
+            #pragma warning disable CS0162 // Se detectó código inaccesible
+            Console.WriteLine("Battle System Processing Thread exited");
+            #pragma warning restore CS0162 // Se detectó código inaccesible
         }
     }
 }

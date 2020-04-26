@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DB", "DB\DB.csproj", "{7B00A8DC-6C81-4970-9627-4E3C115FF6AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DB", "DB\DB.csproj", "{7B00A8DC-6C81-4970-9627-4E3C115FF6AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerCore", "ServerCore\ServerCore.csproj", "{AF2BC681-FEEA-4EF8-8109-2C6BC05B3996}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerCore", "ServerCore\ServerCore.csproj", "{AF2BC681-FEEA-4EF8-8109-2C6BC05B3996}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginServer", "LoginServer\LoginServer.csproj", "{B91BCF6C-E9B0-4B85-83D2-6305A2B4AC60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoginServer", "LoginServer\LoginServer.csproj", "{B91BCF6C-E9B0-4B85-83D2-6305A2B4AC60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsgServer", "MsgServer\MsgServer.csproj", "{83EB10C9-BA92-444A-8DDA-C2387A2C5A3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MsgServer", "MsgServer\MsgServer.csproj", "{83EB10C9-BA92-444A-8DDA-C2387A2C5A3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
