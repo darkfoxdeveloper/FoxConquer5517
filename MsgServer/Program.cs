@@ -51,9 +51,12 @@ namespace MsgServer
 
         static void Main(string[] args)
         {
-            // set close handler
-            m_pHandler += Handler;
-            SetConsoleCtrlHandler(m_pHandler, true);
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                // set close handler
+                m_pHandler += Handler;
+                SetConsoleCtrlHandler(m_pHandler, true);
+            }
 
             ServerKernel.Log = new LogWriter(Environment.CurrentDirectory + @"\");
 
@@ -142,7 +145,10 @@ namespace MsgServer
 
         private static void HandleCommands()
         {
-            DeleteMenu(GetSystemMenu(GetConsoleWindow(), false), SC_CLOSE, MF_BYCOMMAND);
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                DeleteMenu(GetSystemMenu(GetConsoleWindow(), false), SC_CLOSE, MF_BYCOMMAND);
+            }
 
             string command;
             do
