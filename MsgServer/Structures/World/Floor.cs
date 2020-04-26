@@ -55,7 +55,7 @@ namespace MsgServer.Structures.World
             {
                 // If the file exists, load the file. Else, convert the file.
                 string mapLocationPathNoWin = System.IO.Path.Combine(Environment.CurrentDirectory, Database.MAPS_LOCATION.Replace(@"\\", ""), Path);
-                string dmapLocationPathNoWin = System.IO.Path.Combine(Environment.CurrentDirectory, Database.DMAPS_LOCATION.Replace(@"\\", ""), Path.Replace(".cqm", ".dmap"));
+                string dmapLocationPathNoWin = System.IO.Path.Combine(Environment.CurrentDirectory, "DMaps", Path.Replace(".cqm", ".dmap"));
                 bool existFile = false;
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
@@ -95,7 +95,7 @@ namespace MsgServer.Structures.World
                                + Path.Replace(".cqm", ".dmap"));
                 } else
                 {
-                    Console.WriteLine("Loading DMap path: " + Path); // testing
+                    Console.WriteLine("Loading DMap path: " + dmapLocationPathNoWin); // testing
                     return Convert(dmapLocationPathNoWin);
                 }
             }
