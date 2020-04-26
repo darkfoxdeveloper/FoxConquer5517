@@ -12,6 +12,7 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace MsgServer.Structures.World
@@ -78,8 +79,15 @@ namespace MsgServer.Structures.World
                     stream.Dispose();
                     return true;
                 }
-                return Convert(Environment.CurrentDirectory + Database.DMAPS_LOCATION + "map\\"
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    return Convert(Environment.CurrentDirectory + Database.DMAPS_LOCATION + "map\\"
                                + Path.Replace(".cqm", ".dmap"));
+                } else
+                {
+                    string fixedPath = System.IO.Path.Combine(Environment.CurrentDirectory, Database.DMAPS_LOCATION, "map", Path.Replace(".cqm", ".dmap"));
+                    return Convert(fixedPath);
+                }
             }
             catch (Exception e) { Console.WriteLine(e); }
             return false;
