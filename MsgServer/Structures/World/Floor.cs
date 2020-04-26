@@ -113,7 +113,9 @@ namespace MsgServer.Structures.World
             try
             {
                 // Initialization File Streams:
-                FileStream dmapStream = File.OpenRead(System.IO.Path.Combine(path));
+                string mapPath = System.IO.Path.Combine(path);
+                ServerKernel.Log.SaveLog("Loading DMap path: " + mapPath);
+                FileStream dmapStream = File.OpenRead(mapPath);
                 var dmapReader = new BinaryReader(dmapStream);
                 dmapReader.BaseStream.Seek(0x10CL, SeekOrigin.Begin);
 
