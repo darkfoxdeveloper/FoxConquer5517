@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using DB;
@@ -1599,7 +1600,12 @@ namespace MsgServer
         public static void DecodeGamemapFile()
         {
             // Initialize file stream:
-            FileStream stream = File.OpenRead(Environment.CurrentDirectory + DATABASE_LOCATION + "GameMap.dat");
+            string GameMapPath = Environment.CurrentDirectory + DATABASE_LOCATION + "GameMap.dat";
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                GameMapPath = Path.Combine(Environment.CurrentDirectory, "GameMap.dat");
+            }
+            FileStream stream = File.OpenRead(GameMapPath);
             var reader = new BinaryReader(stream);
             var values = new Dictionary<int, string>();
 
