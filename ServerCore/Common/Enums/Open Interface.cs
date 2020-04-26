@@ -1,0 +1,93 @@
+﻿// World Conquer Online Project 2.5517 - Phoenix Project Based
+// This project has been created by Felipe Vieira Vendramini and updated by Cristian Ocaña Soler
+// Source Infrastructure based on Phoenix Source, written by Gareth Jensen
+// This source is targeted to Conquer Online, client version 5517
+// 
+
+// File Created by:  Felipe Vieira Vendramini 
+// zfserver v2.5517 - ServerCore - Open Interface.cs
+// Last Edit: 2016/11/23 07:57
+// Created: 2016/11/23 07:50
+namespace ServerCore.Common.Enums
+{
+    public enum OpenInterface
+    {
+        EXIT_QUESTION = 1,
+        MINIMIZE = 2,
+        SHOW_REVIVE_BUTTON = 1053,
+        FLOWER_POINTER = 1067,
+        ENCHANT = 1091,
+        LOGIN_SCREEN = 1153,
+        SELECT_RECIPIET = 30,
+        JOIN_GUILD = 34,
+        MAKE_FRIEND = 38,
+        CHAT_WHISPER = 40,
+        CLOSE_CLIENT = 43,
+        HOT_KEY = 53,
+        FURNITURE = 54,
+        TQ_FORUM = 79,
+        PATH_FIND = 97,
+        LOCK_ITEM = 102,
+        SHOW_REVIVE = 1053,
+        HIDE_REVIVE = 1054,
+        STATUE_MAKER = 1066,
+        GAMBLE_OPEN = 1077,
+        GAMBLE_CLOSE = 1078,
+        COMPOSE = 1086,
+        CRAFT1 = 1088,
+        CRAFT2 = 1089,
+        WAREHOUSE = 1090,
+        SHOPPING_MALL_SHOW = 1100,
+        SHOPPING_MALL_HIDE = 1101,
+        NO_OFFLINE_TRAINING = 1117,
+        CENTER_CLIENT = 1155,
+        CLAIM_CP = 1197,
+        CLAIM_AMOUNT = 1198,
+        MERCHANT_APPLY = 1201,
+        MERCHANT_DONE = 1202,
+        REDEEM_EQUIPMENT = 1233,
+        CLAIM_PRIZE = 1234,
+        REPAIR_ALL = 1239,
+        FLOWER_ICON = 1244,
+        SEND_FLOWER = 1246,
+        RECIVE_FLOWER = 1248,
+        WAREHOUSE_VIP = 1272,
+        USE_EXP_BALL = 1288,
+        HACK_PROTECTION = 1298,
+        HIDE_GUI = 1307,
+        INSCRIBE = 3059,
+        BUY_PRAY_STONE = 3069,
+        HONOR_STORE = 3104,
+        OPPONENT = 3107,
+        COUNT_DOWN_QUALIFIER = 3109,
+        QUALIFIER_START = 3111,
+        ITEMS_RETURNED_SHOW = 3117,
+        ITEMS_RETURNED_WINDOW = 3118,
+        ITEMS_RETURNED_HIDE = 3119,
+        QUEST_FINISHED = 3147,
+        QUEST_POINT = 3148,
+        QUEST_POINT_SPARKLE = 3164,
+        STUDY_POINTS_UP = 3192,
+        UPDATES = 3217,
+        TEAMPK_INSTRUCTION = 3218,
+        TEAMPK_SETTEAM_NAME = 3221,
+        TEAMPK_CHANGE_NAME = 3223,
+        INCREASE_LINEAGE = 3227,
+        TEAMPK_SHOWINTERFACE = 3228,
+        ENLIGHTEN_FINGER = 3239,
+        HORSE_RACING_STORE = 3245,
+        GUILD_PK_TOURNY = 3249,
+        QUIT_PK = 3251,
+        SPECTATORS = 3252,
+        CARD_PLAY_OPEN = 3270,
+        CARD_PLAY_CLOST = 3271,
+        ARTIFACT_PURIFICATION = 3344,
+        SAFEGUARD_CONVOY_SHOW = 3389,
+        SAFEGUARD_CONVOY_HIDE = 3390,
+        REFINERY_STABILIZATION = 3392,
+        ARTIFACT_STABILIZATION = 3398,
+        SMALL_CHAT = 3406,
+        NORMAL_CHAT = 3407,
+        REINCARNATION = 3439
+    }
+}
