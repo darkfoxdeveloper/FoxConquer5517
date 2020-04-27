@@ -106,6 +106,7 @@ namespace LoginServer
             {
                 ServerKernel.Log.SaveLog("Could not connect to mysql server.", true, "LoginServer", LogType.ERROR);
                 ServerKernel.Log.SaveLog(ex.ToString(), false, "LoginServer", LogType.EXCEPTION);
+                Console.WriteLine(ex.ToString());//
                 Console.Read();
                 Environment.Exit(-1);
             }
