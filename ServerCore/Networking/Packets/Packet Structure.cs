@@ -28,8 +28,8 @@ namespace ServerCore.Networking.Packets
         private byte[] _array;  // The packet byte array. The base of the packet.
 
         // Local-Scope Native Function Calls:
-        #region Native Function Calls
-        public const string MSVCRT = "msvcrt.dll";
+        #region Native Function Calls (Windows Only, DEPRECATED)
+        /*public const string MSVCRT = "msvcrt.dll";
 
         /// <summary> Copies the value of one memory location into another. </summary>
         /// <param name="dst">The destination of the value being copied.</param>
@@ -57,7 +57,7 @@ namespace ServerCore.Networking.Packets
         /// <param name="fill">The initialization value replacing the data.</param>
         /// <param name="length">The length to replace.</param>
         [DllImport(MSVCRT, CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
-        public static extern void* memset(void* dst, byte fill, int length);
+        public static extern void* memset(void* dst, byte fill, int length);*/
         #endregion
 
         /// <summary>
@@ -328,7 +328,7 @@ namespace ServerCore.Networking.Packets
         {
             // Fill the array with the value:
             fixed (byte* ptr = _array)
-                memset(ptr + offset, value, length);
+                Utils.Memset(ptr + offset, value, length);//memset(ptr + offset, value, length);
         }
 
         /// <summary> This method writes a boolean to the packet structure. </summary>
@@ -439,8 +439,14 @@ namespace ServerCore.Networking.Packets
         {
             // Write the value:
             Fill(0, offset, length);
-            fixed (byte* ptr = _array)
-                memcpy(ptr + offset, value, value.Length);
+            //fixed (byte* ptr = _array)
+            //    memcpy(ptr + offset, value, value.Length);
+
+            if (_array == null) return;
+            if (offset > _array.Length - 1) return;
+            byte[] argEncoded = Encoding.Default.GetBytes(value);
+            if (_array.Length >= offset + value.Length)
+                Array.Copy(argEncoded, 0, _array, offset, value.Length);
         }
 
         /// <summary> This method writes a string to the packet structure (without writing the length). </summary>
@@ -451,10 +457,16 @@ namespace ServerCore.Networking.Packets
         public void WriteString(string value, int length, int offset, Encoding encoding)
         {
             // Write the value:
-            byte[] bytes = encoding.GetBytes(value);
+            //byte[] bytes = encoding.GetBytes(value);
             Fill(0, offset, length);
-            fixed (byte* ptr = _array)
-                memcpy(ptr + offset, bytes, bytes.Length);
+            //fixed (byte* ptr = _array)
+            //    memcpy(ptr + offset, bytes, bytes.Length);
+
+            if (_array == null) return;
+            if (offset > _array.Length - 1) return;
+            byte[] argEncoded = encoding.GetBytes(value);
+            if (_array.Length >= offset + value.Length)
+                Array.Copy(argEncoded, 0, _array, offset, value.Length);
         }
 
         /// <summary> This method writes a byte length and string to the packet structure. </summary>
@@ -468,7 +480,15 @@ namespace ServerCore.Networking.Packets
             {
                 ptr[offset] = (byte)value.Length;
                 Fill(0, offset + 1, value.Length);
-                memcpy(ptr + offset + 1, value, value.Length);
+                //memcpy(ptr + offset + 1, value, value.Length);
+                if (_array == null) return;
+                if (offset > _array.Length - 1) return;
+                int till = _array.Length - offset;
+                till = Math.Min(value.Length, till);
+                _array[offset] = (byte)value.Length;
+                offset++;
+                byte[] argEncoded = Encoding.Default.GetBytes(value);
+                Array.Copy(argEncoded, 0, _array, offset, till);
             }
         }
 
@@ -481,21 +501,24 @@ namespace ServerCore.Networking.Packets
             // Write the value:
             Fill(0, offset, value.Length);
             fixed (byte* ptr = _array)
-                memcpy(ptr + offset, value, value.Length);
+            {
+                //memcpy(ptr + offset, value, value.Length);
+                Unsafe.Copy(ptr + offset, ref value);
+            }
         }
 
         /// <summary> This method writes an unsigned byte array to the packet structure. </summary>
         /// <param name="value">The value being written to the packet.</param>
         /// <param name="length">The length of the array to copy.</param>
         /// <param name="offset">The position where the value will be written to.</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void WriteArray(byte[] value, int length, int offset)
-        {
-            // Write the value:
-            Fill(0, offset, length);
-            fixed (byte* ptr = _array)
-                memcpy(ptr + offset, value, length);
-        }
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public void WriteArray(byte[] value, int length, int offset)
+        //{
+        //    // Write the value:
+        //    Fill(0, offset, length);
+        //    fixed (byte* ptr = _array)
+        //        memcpy(ptr + offset, value, length);
+        //}
 
         /// <summary> This method writes a signed random integer to the packet structure. </summary>
         /// <param name="minValue">The minimum value that can be generated by the random number generator.</param>
