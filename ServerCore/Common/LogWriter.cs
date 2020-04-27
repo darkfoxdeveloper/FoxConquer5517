@@ -19,11 +19,11 @@ namespace ServerCore.Common
         public const string STR_CONSOLE_MSG = "{0} - {1}";
 
         public const string STR_GMLOG_FORMAT = "{0} - {1}"; // {0} is message {1} is date
-        public const string STR_GMLOG_FOLDER = @"gmlog\";
+        public const string STR_GMLOG_FOLDER = @"gmlog";
         public const string STR_GMLOG_SUBFOLDER = "yyyyMM";
 
         public const string STR_SYSLOG_FORMAT = "{0} [{1}] - {2}";
-        public const string STR_SYSLOG_FOLDER = @"syslog\";
+        public const string STR_SYSLOG_FOLDER = @"syslog";
         public const string STR_SYSLOG_GAMESERVER = "CQ_Server";
         public const string STR_SYSLOG_NPCSERVER = "NPC_Server";
         public const string STR_SYSLOG_ANALYTIC = "Analytic";
@@ -185,7 +185,7 @@ namespace ServerCore.Common
 
         private string GetGmFolder()
         {
-            return _szMainDirectory + STR_GMLOG_FOLDER + DateTime.Now.ToString(STR_GMLOG_SUBFOLDER) + @"\";
+            return Path.Combine(_szMainDirectory, STR_GMLOG_FOLDER, DateTime.Now.ToString(STR_GMLOG_SUBFOLDER));
         }
 
         /// <summary>
@@ -196,12 +196,12 @@ namespace ServerCore.Common
         {
             try
             {
-                if (!Directory.Exists(_szMainDirectory + STR_GMLOG_FOLDER))
-                    Directory.CreateDirectory(_szMainDirectory + STR_GMLOG_FOLDER);
-                if (!Directory.Exists(_szMainDirectory + STR_GMLOG_FOLDER + DateTime.Now.ToString(STR_GMLOG_SUBFOLDER) + @"\"))
-                    Directory.CreateDirectory(_szMainDirectory + STR_GMLOG_FOLDER + DateTime.Now.ToString(STR_GMLOG_SUBFOLDER) + @"\");
-                if (!Directory.Exists(_szMainDirectory + STR_SYSLOG_FOLDER))
-                    Directory.CreateDirectory(_szMainDirectory + STR_SYSLOG_FOLDER);
+                if (!Directory.Exists(Path.Combine(_szMainDirectory, STR_GMLOG_FOLDER)))
+                    Directory.CreateDirectory(Path.Combine(_szMainDirectory, STR_GMLOG_FOLDER));
+                if (!Directory.Exists(Path.Combine(_szMainDirectory, STR_GMLOG_FOLDER, DateTime.Now.ToString(STR_GMLOG_SUBFOLDER))))
+                    Directory.CreateDirectory(Path.Combine(_szMainDirectory, STR_GMLOG_FOLDER, DateTime.Now.ToString(STR_GMLOG_SUBFOLDER)));
+                if (!Directory.Exists(Path.Combine(_szMainDirectory, STR_SYSLOG_FOLDER)))
+                    Directory.CreateDirectory(Path.Combine(_szMainDirectory, STR_SYSLOG_FOLDER));
             }
             catch (Exception ex)
             {
