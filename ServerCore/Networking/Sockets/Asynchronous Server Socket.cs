@@ -61,7 +61,10 @@ namespace ServerCore.Networking.Sockets
             Name = name;
             FooterLength = 0;
             Footer = "";
-            base.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontLinger, true);
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                base.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontLinger, true);
+            }
             base.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
         }
 
