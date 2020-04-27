@@ -125,7 +125,10 @@ namespace MsgServer
             try
             {
                 ServerKernel.GameServer = new GameSocket();
-                ServerKernel.GameServer.SetSecurity(IPProtectionLevel.Unrestricted, 6, 15);
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    ServerKernel.GameServer.SetSecurity(IPProtectionLevel.Unrestricted, 6, 15);
+                }
                 ServerKernel.GameServer.Bind("0.0.0.0", ServerKernel.GamePort);
                 ServerKernel.GameServer.Listen(10);
                 ServerKernel.Log.SaveLog("Game Server waiting for client connections...", true, LogType.MESSAGE);
