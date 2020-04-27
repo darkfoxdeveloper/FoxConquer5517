@@ -134,6 +134,7 @@ namespace MsgServer
             {
                 ServerKernel.Log.SaveLog("Could not open game socket on port " + ServerKernel.GamePort, true, LogType.ERROR);
                 ServerKernel.Log.SaveLog(ex.ToString(), false, LogType.EXCEPTION);
+                Console.WriteLine(ex.ToString());//
                 Console.ReadKey();
                 Environment.Exit(-1);
             }
