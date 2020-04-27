@@ -94,9 +94,6 @@ namespace LoginServer
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 BlowfishCipher.InitialKey = Encoding.ASCII.GetBytes(ServerKernel.ConfigReader.GetEntryValue("Blowfish", "Key").ToString());
-            } else
-            {
-                BlowfishCipher.InitialKey = Encoding.ASCII.GetBytes(ServerKernel.NewConfigReader["Blowfish"]["Key"]);
             }
 
             ServerKernel.Log.SaveLog("Checking database...", true, "Login_Server");
