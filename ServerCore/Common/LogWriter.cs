@@ -29,7 +29,7 @@ namespace ServerCore.Common
         public const string STR_SYSLOG_ANALYTIC = "Analytic";
         public const string STR_SYSLOG_DATABASE = "Database";
 
-        private readonly string _szMainDirectory = Path.GetPathRoot(Environment.CurrentDirectory) + @"zfserver\";
+        private readonly string _szMainDirectory = Path.Combine(Path.GetPathRoot(Environment.CurrentDirectory), "zfserver");
 
         /// <summary>
         /// Start a new instance and create the necessary folders.
@@ -81,7 +81,7 @@ namespace ServerCore.Common
         {
             CheckFolders();
 
-            string szFilePath = _szMainDirectory + STR_SYSLOG_FOLDER + szFileName;
+            string szFilePath = Path.Combine(_szMainDirectory, STR_SYSLOG_FOLDER, szFileName);
 
             if (bConsole)
                 Console.WriteLine(szMessage);
@@ -103,7 +103,7 @@ namespace ServerCore.Common
             string szDefault = szMessage;
             szMessage = FormatSysString(szMessage, ltLog);
 
-            string szFilePath = _szMainDirectory + STR_SYSLOG_FOLDER + szFileName;
+            string szFilePath = Path.Combine(_szMainDirectory, STR_SYSLOG_FOLDER, szFileName);
 
             switch (ltLog)
             {
