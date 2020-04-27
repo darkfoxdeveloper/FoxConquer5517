@@ -48,18 +48,37 @@ namespace DB
 
         public SessionFactory(string szHost, bool bIsLogin)
         {
-            var iniFile = new IniFileName(Environment.CurrentDirectory + @"\" + szHost);
-            _hostname = iniFile.GetEntryValue("MySQL", "Hostname").ToString();
-            _username = iniFile.GetEntryValue("MySQL", "Username").ToString();
-            _password = iniFile.GetEntryValue("MySQL", "Password").ToString();
-            _database = iniFile.GetEntryValue("MySQL", "Database").ToString();
-            if (bIsLogin)
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                _port = int.Parse(iniFile.GetEntryValue("MySQL", "Port").ToString());
-                LoginDatabase = CreateLoginFactory();
+                var iniFile = new IniFileName(Environment.CurrentDirectory + @"\" + szHost);
+                _hostname = iniFile.GetEntryValue("MySQL", "Hostname").ToString();
+                _username = iniFile.GetEntryValue("MySQL", "Username").ToString();
+                _password = iniFile.GetEntryValue("MySQL", "Password").ToString();
+                _database = iniFile.GetEntryValue("MySQL", "Database").ToString();
+                if (bIsLogin)
+                {
+                    _port = int.Parse(iniFile.GetEntryValue("MySQL", "Port").ToString());
+                    LoginDatabase = CreateLoginFactory();
+                }
+                else
+                    GameDatabase = CreateSessionFactory();
+            } else
+            {
+                var iniFileParser = new FileIniDataParser();
+                string iniFilePath = Path.Combine(Environment.CurrentDirectory, szHost);
+                IniData iniFileData = iniFileParser.ReadFile(iniFilePath);
+                _hostname = iniFileData["MySQL"]["Hostname"];
+                _username = iniFileData["MySQL"]["Username"];
+                _password = iniFileData["MySQL"]["Password"];
+                _database = iniFileData["MySQL"]["Database"];
+                if (bIsLogin)
+                {
+                    _port = int.Parse(iniFileData["MySQL"]["Port"]);
+                    LoginDatabase = CreateLoginFactory();
+                }
+                else
+                    GameDatabase = CreateSessionFactory();
             }
-            else
-                GameDatabase = CreateSessionFactory();
         }
 
         public SessionFactory(string szGame, string szLogin)
