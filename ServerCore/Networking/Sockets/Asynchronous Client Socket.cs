@@ -11,6 +11,7 @@
 
 using System;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using ServerCore.Common;
 using ServerCore.Interfaces;
 using ServerCore.Networking.Packets;
@@ -58,7 +59,10 @@ namespace ServerCore.Networking.Sockets
             Name = name;
             FooterLength = 0;
             Footer = "";
-            base.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontLinger, true);
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                base.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontLinger, true);
+            }
             base.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
         }
 
@@ -77,7 +81,10 @@ namespace ServerCore.Networking.Sockets
             Name = name;
             FooterLength = 0;
             Footer = "";
-            base.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontLinger, true);
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                base.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontLinger, true);
+            }
             base.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
             OnClientConnect = new AsynchronousConnect(connect);
             OnClientDisconnect = new AsynchronousDisconnect(disconnect);
@@ -101,7 +108,10 @@ namespace ServerCore.Networking.Sockets
             Name = name;
             FooterLength = footer.Length;
             Footer = footer;
-            base.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontLinger, true);
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                base.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontLinger, true);
+            }
             base.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
         }
 
