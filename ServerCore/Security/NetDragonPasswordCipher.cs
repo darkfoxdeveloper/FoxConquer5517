@@ -124,7 +124,10 @@ namespace ServerCore.Security
                 if (input[index] == 0)
                 {
                     fixed (byte* ptr = input)
-                        NativeFunctionCalls.memset(ptr + index, 0, input.Length - index);
+                    {
+                        Utils.Memset(ptr + index, 0, input.Length - index);
+                        //NativeFunctionCalls.memset(ptr + index, 0, input.Length - index);
+                    }
                     return;
                 }
 

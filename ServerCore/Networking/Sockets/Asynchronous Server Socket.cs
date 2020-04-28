@@ -345,7 +345,10 @@ namespace ServerCore.Networking.Sockets
                             passport.Cipher.Decrypt(passport.Packet, state.Buffer, length, passport.CurrentWritePosition);
                         else fixed (byte* packet = passport.Packet)
                             {
-                                Unsafe.Copy(packet + passport.CurrentWritePosition, ref state.Buffer);
+                                fixed (byte* buff = state.Buffer)
+                                {
+                                    Utils.Memcpy(packet + passport.CurrentWritePosition, buff, length);
+                                }
                                 //NativeFunctionCalls.memcpy(packet + passport.CurrentWritePosition, state.Buffer, length); // TODO change for cross platform compatibility
                             }
                         int difference = passport.ExpectedReceiveLength - length;

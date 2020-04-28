@@ -254,7 +254,14 @@ namespace ServerCore.Networking.Sockets
                         // Decrypt the packet header:
                         byte[] buffer = new byte[length];
 
-                        NativeFunctionCalls.memcpy(buffer, state.Buffer, length); // TODO change for cross platform compatibility
+                        fixed (byte* buffPtrDst = buffer)
+                        {
+                            fixed (byte* buffPtrSrc = state.Buffer)
+                            {
+                                Utils.Memcpy(buffPtrDst, buffPtrSrc, length);
+                            }
+                        }
+                        //NativeFunctionCalls.memcpy(buffer, state.Buffer, length); // TODO change for cross platform compatibility
 
                         buffer = passport.Cipher != null ?
                             passport.Cipher.Decrypt(buffer, buffer.Length) : buffer;
@@ -279,7 +286,13 @@ namespace ServerCore.Networking.Sockets
                         fixed (byte* packetPtr = passport.Packet) { *(PacketHeader*)packetPtr = header; }
 
                         fixed (byte* packet = passport.Packet)
-                            NativeFunctionCalls.memcpy(packet, buffer, header.Length); // TODO change for cross platform compatibility
+                        {
+                            fixed (byte* buffPtr = buffer)
+                            {
+                                Utils.Memcpy(packet, buffPtr, header.Length);
+                            }
+                            //NativeFunctionCalls.memcpy(packet, buffer, header.Length); // TODO change for cross platform compatibility
+                        }
 
                         int difference = passport.ExpectedReceiveLength - length;
 
@@ -348,7 +361,13 @@ namespace ServerCore.Networking.Sockets
                         if (passport.Cipher != null)
                             passport.Cipher.Decrypt(passport.Packet, state.Buffer, length, passport.CurrentWritePosition);
                         else fixed (byte* packet = passport.Packet)
-                                NativeFunctionCalls.memcpy(packet + passport.CurrentWritePosition, state.Buffer, length); // TODO change for cross platform compatibility
+                            {
+                                fixed (byte* buffPtr = state.Buffer)
+                                {
+                                    Utils.Memcpy(packet + passport.CurrentWritePosition, buffPtr, length);
+                                }
+                                //NativeFunctionCalls.memcpy(packet + passport.CurrentWritePosition, state.Buffer, length); // TODO change for cross platform compatibility
+                            }
                         int difference = passport.ExpectedReceiveLength - length;
 
                         // If the difference between the expected receive length and the actual receive length is

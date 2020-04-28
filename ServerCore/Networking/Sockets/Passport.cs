@@ -13,6 +13,8 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Text;
 using ServerCore.Common;
 using ServerCore.Interfaces;
 
@@ -67,10 +69,19 @@ namespace ServerCore.Networking.Sockets
                     // Add the footer to the end of the packet:
                     if (Server.FooterLength > 0)
                     {
-                        fixed (byte* packetPtr = packet)
+                        // Write the footer without 'memcpy' windows api function
+                        packet[packet.Length - 8] = Encoding.UTF8.GetBytes(Server.Footer)[0];
+                        packet[packet.Length - 7] = Encoding.UTF8.GetBytes(Server.Footer)[1];
+                        packet[packet.Length - 6] = Encoding.UTF8.GetBytes(Server.Footer)[2];
+                        packet[packet.Length - 5] = Encoding.UTF8.GetBytes(Server.Footer)[3];
+                        packet[packet.Length - 4] = Encoding.UTF8.GetBytes(Server.Footer)[4];
+                        packet[packet.Length - 3] = Encoding.UTF8.GetBytes(Server.Footer)[5];
+                        packet[packet.Length - 2] = Encoding.UTF8.GetBytes(Server.Footer)[6];
+                        packet[packet.Length - 1] = Encoding.UTF8.GetBytes(Server.Footer)[7];
+                        /*fixed (byte* packetPtr = packet)
                         {
                             NativeFunctionCalls.memcpy(packetPtr + packet.Length - 8, Server.Footer, Server.FooterLength); // TODO change for cross platform compatibility
-                        }
+                        }*/
                     }
 
                     // Encrypt the packet and attempt to send it to the client:

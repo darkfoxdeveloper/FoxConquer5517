@@ -10,6 +10,7 @@
 // Created: 2016/11/23 07:53
 
 using ServerCore.Common;
+using System;
 
 namespace ServerCore.Security
 {
@@ -73,8 +74,13 @@ namespace ServerCore.Security
             // Initialize Cipher Buffers:
             _keyBuffer = new uint[KEY_SIZE];
             _substitutionBuffer = new uint[SUBSTITUTION_SIZE];
-            fixed (uint* keyBufferPtr = _keyBuffer)
-                NativeFunctionCalls.memcpy((byte*)keyBufferPtr, initializationVector, KEY_SIZE * sizeof(uint)); // TODO change for cross platform compatibility
+            fixed (uint* keyBufferPtr = _keyBuffer) {
+                fixed (byte* iVectPtr = initializationVector)
+                {
+                    Utils.Memcpy((byte*)keyBufferPtr, iVectPtr, KEY_SIZE * sizeof(uint));
+                }
+                //NativeFunctionCalls.memcpy((byte*)keyBufferPtr, initializationVector, KEY_SIZE * sizeof(uint)); // TODO change for cross platform compatibility
+            }
 
             // Generate the substitution box:
             _substitutionBuffer[0] = 0xB7E15163;
