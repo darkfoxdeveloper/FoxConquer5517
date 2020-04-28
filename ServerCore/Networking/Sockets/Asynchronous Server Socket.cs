@@ -12,6 +12,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using ServerCore.Common;
 using ServerCore.Interfaces;
@@ -343,7 +344,10 @@ namespace ServerCore.Networking.Sockets
                         if (passport.Cipher != null)
                             passport.Cipher.Decrypt(passport.Packet, state.Buffer, length, passport.CurrentWritePosition);
                         else fixed (byte* packet = passport.Packet)
-                                NativeFunctionCalls.memcpy(packet + passport.CurrentWritePosition, state.Buffer, length);
+                            {
+                                Unsafe.Copy(packet + passport.CurrentWritePosition, ref state.Buffer);
+                                //NativeFunctionCalls.memcpy(packet + passport.CurrentWritePosition, state.Buffer, length); // TODO change for cross platform compatibility
+                            }
                         int difference = passport.ExpectedReceiveLength - length;
 
                         // If the difference between the expected receive length and the actual receive length is

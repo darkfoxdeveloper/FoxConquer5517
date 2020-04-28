@@ -21,8 +21,8 @@ namespace ServerCore.Common
     public unsafe static class NativeFunctionCalls
     {
         // Local-Scope Variable Declaractions:
-        public const string MSVCRT = "msvcrt.dll";
-        public const string KERNEL32 = "kernel32.dll";
+        public const string MSVCRT = "msvcrt";
+        public const string KERNEL32 = "kernel32";
 
         /// <summary> Allocates a location in memory. </summary>
         /// <param name="size">The length of data to be allocated.</param>

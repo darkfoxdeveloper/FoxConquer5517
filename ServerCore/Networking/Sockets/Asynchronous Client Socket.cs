@@ -287,7 +287,7 @@ namespace ServerCore.Networking.Sockets
                         passport.Packet = new byte[passport.ExpectedReceiveLength + sizeof(PacketHeader)];
                         fixed (byte* packetPtr = passport.Packet) { *(PacketHeader*)packetPtr = header; }
                         fixed (byte* packet = passport.Packet)
-                            NativeFunctionCalls.memcpy(packet, buffer, header.Length);
+                            NativeFunctionCalls.memcpy(packet, buffer, header.Length); // TODO change for cross platform compatibility
 
                         int difference = passport.ExpectedReceiveLength - length;
 
@@ -362,7 +362,7 @@ namespace ServerCore.Networking.Sockets
                         if (passport.Cipher != null)
                             passport.Cipher.Decrypt(passport.Packet, state.Buffer, length, passport.CurrentWritePosition);
                         else fixed (byte* packet = passport.Packet)
-                                NativeFunctionCalls.memcpy(packet + passport.CurrentWritePosition, state.Buffer, length);
+                                NativeFunctionCalls.memcpy(packet + passport.CurrentWritePosition, state.Buffer, length); // TODO change for cross platform compatibility
                         int difference = passport.ExpectedReceiveLength - length;
 
                         // If the difference between the expected receive length and the actual receive length is

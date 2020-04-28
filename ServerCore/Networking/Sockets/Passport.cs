@@ -12,6 +12,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using ServerCore.Common;
 using ServerCore.Interfaces;
 
@@ -65,9 +66,12 @@ namespace ServerCore.Networking.Sockets
                 {
                     // Add the footer to the end of the packet:
                     if (Server.FooterLength > 0)
+                    {
                         fixed (byte* packetPtr = packet)
-                            NativeFunctionCalls.memcpy(packetPtr + packet.Length - 8,
-                                Server.Footer, Server.FooterLength);
+                        {
+                            NativeFunctionCalls.memcpy(packetPtr + packet.Length - 8, Server.Footer, Server.FooterLength); // TODO change for cross platform compatibility
+                        }
+                    }
 
                     // Encrypt the packet and attempt to send it to the client:
                     byte[] encryptedPacket = Cipher != null ? Cipher.Encrypt(packet, packet.Length) : packet;

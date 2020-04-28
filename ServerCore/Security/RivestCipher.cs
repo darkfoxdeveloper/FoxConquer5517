@@ -74,7 +74,7 @@ namespace ServerCore.Security
             _keyBuffer = new uint[KEY_SIZE];
             _substitutionBuffer = new uint[SUBSTITUTION_SIZE];
             fixed (uint* keyBufferPtr = _keyBuffer)
-                NativeFunctionCalls.memcpy((byte*)keyBufferPtr, initializationVector, KEY_SIZE * sizeof(uint));
+                NativeFunctionCalls.memcpy((byte*)keyBufferPtr, initializationVector, KEY_SIZE * sizeof(uint)); // TODO change for cross platform compatibility
 
             // Generate the substitution box:
             _substitutionBuffer[0] = 0xB7E15163;
