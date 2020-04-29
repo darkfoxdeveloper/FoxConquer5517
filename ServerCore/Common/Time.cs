@@ -9,6 +9,7 @@
 // Last Edit: 2016/11/23 07:57
 // Created: 2016/11/23 07:50
 
+using System;
 using System.Runtime.InteropServices;
 
 namespace ServerCore.Common
@@ -22,8 +23,8 @@ namespace ServerCore.Common
     public struct Time
     {
         // Local-Scope Function Invokes:
-        [DllImport(NativeFunctionCalls.KERNEL32)]
-        private static extern uint GetTickCount64();
+        //[DllImport(NativeFunctionCalls.KERNEL32)]
+        //private static extern uint GetTickCount64();
 
         // Local-Scope Variable Declarations:
         private uint _value;    // The total milliseconds elapsed starting from system startup.
@@ -89,7 +90,7 @@ namespace ServerCore.Common
         /// <summary> This function returns the current millisecond count. </summary>
         public static Time Now
         {
-            get { return new Time(GetTickCount64()); }
+            get { return new Time((uint)Environment.TickCount64); }
         }
 
         // Operations:
