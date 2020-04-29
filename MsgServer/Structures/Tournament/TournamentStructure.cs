@@ -9,12 +9,10 @@
 // Last Edit: 2017/02/21 16:19
 // Created: 2017/02/21 16:19
 
-using System.Collections.Generic;
-
 namespace MsgServer.Structures.Tournament
 {
     public class TournamentStructure
     {
-        private List<List<SingleTournamentMatch>> m_pMatches;
+        //private List<List<SingleTournamentMatch>> m_pMatches;
     }
 }

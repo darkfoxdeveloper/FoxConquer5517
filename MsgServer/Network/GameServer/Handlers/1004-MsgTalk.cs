@@ -1317,7 +1317,7 @@ namespace MsgServer.Network.GameServer.Handlers
                             {
                                 if (command.Length < 2 || command[1] == pRole.Name) return;
 
-                                int nCount = 0;
+                                //int nCount = 0;
                                 if (command[1].ToLower() == "visible")
                                 {
                                     pRole.Invisible = false;

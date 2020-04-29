@@ -35,7 +35,7 @@ namespace MsgServer.Structures.Entities
         private DbDynamicNPC m_dbNpc;
         private MsgNpcInfoEx m_pPacket;
         private short m_sElevation;
-        private uint m_dwMapId;
+        //private uint m_dwMapId;
         private Character m_pRole = null;
         private TimeOutMS m_tDeathTime;
         private Map m_pMap;

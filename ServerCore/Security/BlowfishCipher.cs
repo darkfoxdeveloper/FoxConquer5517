@@ -520,17 +520,17 @@ namespace ServerCore.Security
 
 #else
 
-        [DllImport("libssl", CallingConvention = CallingConvention.Cdecl)] // libeay32 for windows, libssl for unix
+        [DllImport(Utils.OpenSSLLib, CallingConvention = CallingConvention.Cdecl)]
         public extern static void CAST_set_key(IntPtr _key, int len, byte[] data);
 
-        [DllImport("libssl", CallingConvention = CallingConvention.Cdecl)] // libeay32 for windows, libssl for unix
+        [DllImport(Utils.OpenSSLLib, CallingConvention = CallingConvention.Cdecl)]
         public extern static void CAST_cfb64_encrypt(byte[] in_, byte[] out_, int length, IntPtr schedule, byte[] ivec, ref int num, int enc);
 
-        [DllImport("libssl", CallingConvention = CallingConvention.Cdecl)] // libeay32 for windows, libssl for unix
+        [DllImport(Utils.OpenSSLLib, CallingConvention = CallingConvention.Cdecl)]
         public extern static void CAST_cfb64_encrypt(byte[] in_, byte* out_, int length, IntPtr schedule, byte[] ivec, ref int num, int enc);
 
         [StructLayout(LayoutKind.Sequential)]
-        struct bf_key_st
+        struct Bf_key_st
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 18)]
             public UInt32[] P;
@@ -557,9 +557,11 @@ namespace ServerCore.Security
         {
             _encryptIv = new byte[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
             _decryptIv = new byte[8] { 0, 0, 0, 0, 0, 0, 0, 0 };
-            bf_key_st key = new bf_key_st();
-            key.P = new UInt32[16 + 2];
-            key.S = new UInt32[4 * 256];
+            Bf_key_st key = new Bf_key_st
+            {
+                P = new UInt32[16 + 2],
+                S = new UInt32[4 * 256]
+            };
             _key = Marshal.AllocHGlobal(key.P.Length * sizeof(UInt32) + key.S.Length * sizeof(UInt32));
             Marshal.StructureToPtr(key, _key, false);
             _encryptNum = 0;

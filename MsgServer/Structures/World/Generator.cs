@@ -272,7 +272,7 @@ namespace MsgServer.Structures.World
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

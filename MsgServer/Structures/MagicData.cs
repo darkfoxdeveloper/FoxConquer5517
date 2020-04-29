@@ -1633,7 +1633,7 @@ namespace MsgServer.Structures
 
             if (HitByWeapon())
             {
-                int nAdjust = 0;
+                //int nAdjust = 0;
 
                 switch (m_pMagic.Status)
                 {
@@ -2393,7 +2393,7 @@ namespace MsgServer.Structures
             var pos = m_pPos;
 
             int nExp = 0;
-            int nPowerSum = 0;
+            //int nPowerSum = 0;
 
             CollectTargetSet_Bomb(ref pos, 0, (int)m_pMagic.Range + 1);
 
@@ -2417,7 +2417,7 @@ namespace MsgServer.Structures
                 return false;
             }
 
-            int targetNum = 0;
+            //int targetNum = 0;
             foreach (var obj in m_pSetTargetLocked)
             {
                 if (obj.Identity == m_pOwner.Identity)
@@ -2588,7 +2588,7 @@ namespace MsgServer.Structures
             m_pSetTargetLocked.Clear();
 
             // search the target
-            bool bSuc = true;
+            //bool bSuc = true;
 
             var pTarget = m_pOwner.BattleSystem.FindRole(m_idTarget);
             if (pTarget == null
@@ -2602,7 +2602,7 @@ namespace MsgServer.Structures
                 return false;
 
             int nPower = 0;
-            uint idTarget = 0;
+            //uint idTarget = 0;
 
             DynamicNpc pNpc = null;
             InteractionEffect pSpecial = InteractionEffect.NONE;
@@ -3340,7 +3340,7 @@ namespace MsgServer.Structures
                 SkillLevel = m_pMagic.Level
             };
 
-            int targetNum = 0;
+            //int targetNum = 0;
             foreach (var obj in m_pSetTargetLocked)
             {
                 if (obj.Identity != m_pOwner.Identity 
@@ -3656,7 +3656,7 @@ namespace MsgServer.Structures
                 return m_pMagic.UseXp == 2 ? 2 : 1;
             }
 
-            Item item = null;
+            //Item item = null;
             if (m_pOwner is Character)
             {
                 var pRole = m_pOwner as Character;

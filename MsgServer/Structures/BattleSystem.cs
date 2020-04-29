@@ -33,8 +33,8 @@ namespace MsgServer.Structures
         private bool m_bAutoAttack = false;
         private uint m_dwTargetId = 0;
         private int m_nDelay = 0;
-        private bool m_bTargetLocked = false;
-        private int m_nData;
+        //private bool m_bTargetLocked = false;
+        //private int m_nData;
         private int m_nRawDelay;
 
         private IRole m_pOwner;

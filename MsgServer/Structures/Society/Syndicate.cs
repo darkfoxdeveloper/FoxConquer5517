@@ -1136,7 +1136,7 @@ namespace MsgServer.Structures.Society
 
                 Send(string.Format("{0} has abdicated the guild to {1}.", sender.Name, target.Name));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -2191,7 +2191,7 @@ namespace MsgServer.Structures.Society
 
                 return (uint) (pos == SyndicateRank.SENIOR_MEMBER ? 25000 : pos == SyndicateRank.DEPUTY_STEWARD ? 175000 : 0);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // of course will not throw shit
                 // i hope

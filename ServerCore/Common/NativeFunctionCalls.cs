@@ -26,7 +26,8 @@ namespace ServerCore.Common
 
         /// <summary> Allocates a location in memory. </summary>
         /// <param name="size">The length of data to be allocated.</param>
-        [DllImport(MSVCRT, CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
+        [
+        (MSVCRT, CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
         public static extern unsafe void* malloc(int size);
 
         /// <summary> 

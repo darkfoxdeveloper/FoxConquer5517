@@ -66,7 +66,7 @@ namespace MsgServer.Threads
                                 var pMsg = new MsgLoginSvAuthRequest(ServerKernel.HelloSendString);
                                 ServerKernel.LoginServer.Send(pMsg);
                             }
-                            catch (SocketException ex)
+                            catch (SocketException)
                             {
                                 ServerKernel.LoginServer = null;
                                 pSocket.Dispose();

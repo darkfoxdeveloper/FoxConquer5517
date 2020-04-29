@@ -65,7 +65,6 @@ namespace MsgServer.Network.GameServer.Handlers
                             pSender.Send(ServerString.STR_TARGET_TRADING);
                             return;
                         }
-                        break;
                     }
                 #endregion
                 #region Time out

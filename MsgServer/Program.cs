@@ -9,13 +9,6 @@
 // Last Edit: 2016/12/07 20:58
 // Created: 2016/11/23 10:12
 
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net.Sockets;
-using System.Runtime.InteropServices;
-using System.Text;
 using DB.Entities;
 using DB.Repositories;
 using IniParser;
@@ -25,9 +18,17 @@ using MsgServer.Structures.Actions;
 using MsgServer.Structures.Items;
 using MsgServer.Structures.Society;
 using MsgServer.Threads;
+using ServerCore;
 using ServerCore.Common;
 using ServerCore.Common.Enums;
 using ServerCore.Security;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net.Sockets;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace MsgServer
 {
@@ -52,9 +53,9 @@ namespace MsgServer
         [DllImport("kernel32.dll", ExactSpelling = true)]
         private static extern IntPtr GetConsoleWindow();
 
-        static void Main(string[] args)
+        static void Main()
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (Utils.IsWindows)
             {
                 // set close handler
                 m_pHandler += Handler;
@@ -84,7 +85,7 @@ namespace MsgServer
             Console.WriteLine();
             ServerKernel.Log.SaveLog("Initializing game server...", true);
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (Utils.IsWindows)
             {
                 // read the configuration file
                 ServerKernel.ConfigReader = new IniFileName(Environment.CurrentDirectory + @"\Shell.ini");
@@ -109,7 +110,7 @@ namespace MsgServer
                 ServerKernel.Password = data["AccountServer"]["PASSWORD"];
                 ServerKernel.TransferKey = data["TransferKey"]["Key"];
                 ServerKernel.TransferSalt = data["TransferKey"]["Salt"];
-                ServerKernel.Blowfish = data["TransferKey"]["Key"];
+                ServerKernel.Blowfish = data["Blowfish"]["Key"];
             }
 
             ServerKernel.Log.SaveLog("Initializing blowfish", true);
@@ -168,7 +169,7 @@ namespace MsgServer
 
         private static void HandleCommands()
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (Utils.IsWindows)
             {
                 DeleteMenu(GetSystemMenu(GetConsoleWindow(), false), SC_CLOSE, MF_BYCOMMAND);
             }
@@ -212,8 +213,8 @@ namespace MsgServer
                             }
                         case "count_gen":
                             {
-                                int nCount = 0;
-                                string szMap = "undefined";
+                                //int nCount = 0;
+                                //string szMap = "undefined";
                                 break;
                             }
                         case "cls":
@@ -331,7 +332,7 @@ namespace MsgServer
                 ServerKernel.OnlineRecord);
         }
 
-        private static void Close(CloseServerCode reason = CloseServerCode.SELF_CALL)
+        /*private static void Close(CloseServerCode reason = CloseServerCode.SELF_CALL)
         {
             switch (reason)
             {
@@ -351,7 +352,7 @@ namespace MsgServer
                     ServerKernel.Log.SaveLog("Server is being closed for an unknown reason...", true, LogType.WARNING);
                     break;
             }
-        }
+        }*/
 
         private static bool Handler(CtrlType sig)
         {

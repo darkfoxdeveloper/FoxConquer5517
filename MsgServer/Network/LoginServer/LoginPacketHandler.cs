@@ -76,7 +76,7 @@ namespace MsgServer.Network.LoginServer
             {
                 pClient.Disconnect();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
 

@@ -5464,7 +5464,6 @@ namespace MsgServer.Structures.Actions
                 default:
                     return false;
             }
-            return false;
         }
         #endregion
         #region 1510 Line Skill PK enter

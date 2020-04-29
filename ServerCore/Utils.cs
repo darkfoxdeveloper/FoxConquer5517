@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace ServerCore
 {
     public static class Utils
     {
+        public const string OpenSSLLib = "libssl"; // libeay32 for windows, libssl for unix
         public unsafe static void Memset(void* str, byte b, int n)
         {
             int i;
@@ -21,6 +23,12 @@ namespace ServerCore
             Int32 pos = size - (size % sizeof(long));
             for (Int32 i = 0; i < size % sizeof(long); i++)
                 *(((Byte*)dest) + pos + i) = *(((Byte*)src) + pos + i);
+        }
+
+        public static bool IsWindows {
+            get {
+                return RuntimeInformation.IsOSPlatform(OSPlatform.Windows); 
+            }
         }
     }
 }

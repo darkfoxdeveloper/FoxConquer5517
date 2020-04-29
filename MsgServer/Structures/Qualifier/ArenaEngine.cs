@@ -41,7 +41,7 @@ namespace MsgServer.Structures.Qualifier
             4000 // over 120
         };
 
-        private uint m_dwStartPointsPrice = 6000u;
+        //private uint m_dwStartPointsPrice = 6000u;
 
         public ArenaEngine()
         {

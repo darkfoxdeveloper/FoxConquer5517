@@ -115,7 +115,7 @@ namespace LoginServer.Network
                             }
                         }
 
-                        bool bSuccess = true;
+                        //bool bSuccess = true;
                         // check if user has input the right password
                         if (pUser.Password != WhirlpoolHash.Hash(szPw))
                         {
