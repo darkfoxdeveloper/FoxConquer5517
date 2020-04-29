@@ -9,14 +9,12 @@
 // Last Edit: 2016/11/23 07:59
 // Created: 2016/11/23 07:52
 
+using ServerCore.Interfaces;
+using ServerCore.Networking.Packets;
 using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using ServerCore.Common;
-using ServerCore.Interfaces;
-using ServerCore.Networking.Packets;
 
 namespace ServerCore.Networking.Sockets
 {

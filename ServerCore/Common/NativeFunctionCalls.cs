@@ -9,7 +9,7 @@
 // Last Edit: 2016/11/23 07:57
 // Created: 2016/11/23 07:50
 
-using System.Runtime.InteropServices;
+/*using System.Runtime.InteropServices;
 
 namespace ServerCore.Common
 {
@@ -120,4 +120,4 @@ namespace ServerCore.Common
         [DllImport(MSVCRT, CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
         public static extern short rand();
     }
-}
+}*/
