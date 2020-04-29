@@ -520,13 +520,13 @@ namespace ServerCore.Security
 
 #else
 
-        [DllImport("libeay32.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libssl", CallingConvention = CallingConvention.Cdecl)]
         public extern static void CAST_set_key(IntPtr _key, int len, byte[] data);
 
-        [DllImport("libeay32.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libssl", CallingConvention = CallingConvention.Cdecl)]
         public extern static void CAST_cfb64_encrypt(byte[] in_, byte[] out_, int length, IntPtr schedule, byte[] ivec, ref int num, int enc);
 
-        [DllImport("libeay32.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libssl", CallingConvention = CallingConvention.Cdecl)]
         public extern static void CAST_cfb64_encrypt(byte[] in_, byte* out_, int length, IntPtr schedule, byte[] ivec, ref int num, int enc);
 
         [StructLayout(LayoutKind.Sequential)]
