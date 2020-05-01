@@ -5,7 +5,7 @@ namespace ServerCore
 {
     public static class Utils
     {
-        public const string OpenSSLLib = "libeay32"; // libeay32 for windows, libssl for unix
+        public const string OpenSSLLib = "libssl"; // libeay32 for windows, libssl for unix
         public unsafe static void Memset(void* str, byte b, int n)
         {
             int i;
