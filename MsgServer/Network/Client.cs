@@ -10,6 +10,7 @@
 // Created: 2016/11/23 10:25
 
 using System.Net.Sockets;
+using Microsoft.VisualBasic.CompilerServices;
 using MsgServer.Structures.Entities;
 using MsgServer.Structures.World;
 using ServerCore.Common.Enums;
@@ -69,7 +70,14 @@ namespace MsgServer.Network
 
         public bool IsOnline()
         {
-            bool part1 = _socket.Poll(1000, SelectMode.SelectRead);
+            bool part1 = false;
+            if (ServerCore.Utils.IsWindows)
+            {
+                part1 = _socket.Poll(1000, SelectMode.SelectRead);
+            } else
+            {
+                part1 = !_socket.Poll(1000, SelectMode.SelectRead) && _socket.Poll(1000, SelectMode.SelectWrite) && !_socket.Poll(1000, SelectMode.SelectError);
+            }
             bool part2 = (_socket.Available == 0);
             if (part1 && part2)
                 return false;
