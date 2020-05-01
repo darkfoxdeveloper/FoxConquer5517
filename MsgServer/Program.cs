@@ -68,9 +68,9 @@ namespace MsgServer
 
             // Server header
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\tProject WConquer: Conquer Online Private Server Emulator");
-            Console.WriteLine("\t\tDeveloped by Felipe Vieira (FTW! Masters)");
-            Console.WriteLine("\t\tNovember 10th, 2016 - All Rights Reserved");
+            Console.WriteLine("\tFoxConquer Project: Conquer Online Private Server Emulator. 5517 Client Version.");
+            Console.WriteLine("\t\tProject created by Felipe Vieira (FTW! Masters) and maintained by DaRkFoxDeveloper");
+            Console.WriteLine("\t\tMay 01th, 2020 - All Rights Reserved");
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
 
@@ -327,7 +327,7 @@ namespace MsgServer
         public static void UpdateTitle()
         {
             DateTime now = DateTime.Now;
-            Console.Title = string.Format("[{0}] Conquer Online Server - Server Time: {1:0000}/{2:00}/{3:00} {4:00}:{5:00} - Online/Max: {6}/{7}",
+            Console.Title = string.Format("[{0}] FoxConquer Project - Server Time: {1:0000}/{2:00}/{3:00} {4:00}:{5:00} - Online/Max: {6}/{7}",
                 ServerKernel.ServerName, now.Year, now.Month, now.Day, now.Hour, now.Minute, ServerKernel.Players.Count,
                 ServerKernel.OnlineRecord);
         }

@@ -5222,6 +5222,27 @@ namespace MsgServer.Structures.Entities
             return true;
         }
 
+        public bool SetLevel(ushort level)
+        {
+            if (Level > ServerKernel.MAX_UPLEVEL)
+                return false;
+
+            if (Level + level <= 0)
+                return false;
+
+            int addLev = level;
+            if (addLev + Level >= ServerKernel.MAX_UPLEVEL)
+                addLev = ServerKernel.MAX_UPLEVEL - Level;
+
+            if (addLev < 0)
+                return false;
+
+            //AdditionalPoints += (ushort)(addLev * 3);
+            Level = (byte)addLev;
+            Owner.Screen.Send(new MsgAction(Identity, 0, 0, 0, GeneralActionType.LEVELED), true);
+            return true;
+        }
+
         public bool SetExperience(long amount)
         {
             Experience = Experience + amount;

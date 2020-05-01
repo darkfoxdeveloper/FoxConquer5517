@@ -22,7 +22,7 @@ namespace MsgServer.Network.GameServer.Handlers
 {
     public static partial class Handlers
     {
-        private static string[] _invalidNameChar =
+        private static readonly string[] _invalidNameChar =
         {
             "{", "}", "[", "]", "(", ")", "\"", "[gm]", "[pm]", "'", "´", "`", "admin", "helpdesk", " ",
             "bitch", "puta", "whore", "ass", "fuck", "cunt", "fdp"

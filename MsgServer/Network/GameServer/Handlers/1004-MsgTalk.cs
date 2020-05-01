@@ -656,6 +656,16 @@ namespace MsgServer.Network.GameServer.Handlers
                                 break;
                             }
                         #endregion
+                        #region Level
+                        case "/level":
+                            {
+                                if (command.Length < 2)
+                                    return;
+
+                                pClient.Character.SetLevel(ushort.Parse(command[1]));
+                                break;
+                            }
+                        #endregion
                         #region AwardMoney
                         case "/awardmoney":
                         case "/money":
@@ -729,6 +739,37 @@ namespace MsgServer.Network.GameServer.Handlers
                                         pClient.Send(new MsgTalk("PM> Item created.", ChatTone.TOP_LEFT, Color.Yellow));
                                     else
                                         pClient.Send(new MsgTalk("PM> Failed to create item. " + command[1], ChatTone.TOP_LEFT, Color.Yellow));
+                                }
+                                break;
+                            }
+                        #endregion
+                        #region Award Item (By Name And Quality)
+                        case "/item":
+                            {
+                                if (command.Length < 2)
+                                    return;
+
+                                if (command.Length >= 2)
+                                {
+                                    KeyValuePair<uint, DbItemtype> dbItemKVP = ServerKernel.Itemtype.Where(x => x.Value.Name == command[1]).FirstOrDefault();
+                                    if (command.Length == 3)
+                                    {
+                                        dbItemKVP = ServerKernel.Itemtype.Where(x => x.Value.Name == command[1] && x.Value.Type.ToString()[0] == uint.Parse(command[2])).FirstOrDefault();
+                                    }
+                                    if (dbItemKVP.Key != 0)
+                                    {
+                                        DbItemtype dbItem = dbItemKVP.Value;
+                                        if (pClient.Character.Inventory.Create(dbItem.Type))
+                                        {
+                                            pClient.Send(new MsgTalk("PM> Item created.", ChatTone.TOP_LEFT, Color.Yellow));
+                                        } else
+                                        {
+                                            pClient.Send(new MsgTalk("PM> Failed to create item. " + command[1], ChatTone.TOP_LEFT, Color.Yellow));
+                                        }
+                                    } else
+                                    {
+                                        pClient.Send(new MsgTalk("PM> Failed to create item. " + command[1], ChatTone.TOP_LEFT, Color.Yellow));
+                                    }
                                 }
                                 break;
                             }

@@ -56,11 +56,11 @@ namespace LoginServer
 
             // file handling
 
-            Console.Title = "[World Conquer Online] Login Server";
+            Console.Title = "[FoxConquer Project] Login Server";
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\tProject WConquer: Conquer Online Private Server Emulator");
-            Console.WriteLine("\t\tDeveloped by Felipe Vieira (FTW! Masters)");
-            Console.WriteLine("\t\tMarch 20th, 2016 - All Rights Reserved\n");
+            Console.WriteLine("\tFoxConquer Project: Conquer Online Private Server Emulator. 5517 Client Version.");
+            Console.WriteLine("\t\tProject created by Felipe Vieira (FTW! Masters) and maintained by DaRkFoxDeveloper");
+            Console.WriteLine("\t\tMay 01th, 2020 - All Rights Reserved\n");
             // Output the description of the server
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("The account server is designed to accept login data from the client and to\n"
@@ -155,7 +155,7 @@ namespace LoginServer
         {
             ServerKernel.Log.SaveLog(false, new string('=', Console.WindowWidth), _LOGIN_ANALYTIC_LOG);
             ServerKernel.Log.SaveLog(false,
-                string.Format("=== Conquer Online Login Server - {0} - {1}", "World Conquer Online",
+                string.Format("=== Conquer Online Login Server - {0} - {1}", "FoxConquer Project",
                     DateTime.Now.ToString("MMM yy dd hh:mm:ss")), _LOGIN_ANALYTIC_LOG);
             ServerKernel.Log.SaveLog(false,
                 string.Format("=== Start Server time is {0}",
