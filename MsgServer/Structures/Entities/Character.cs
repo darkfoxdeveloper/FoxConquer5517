@@ -5331,14 +5331,14 @@ namespace MsgServer.Structures.Entities
                         && Team.Leader.Syndicate == Syndicate)
                         SyndicateMember.IncreaseGuideDonation(1);
 
-                    Syndicate.Send(string.Format("{0} has awarded 1 Guide Donation for helping newbies."));
+                    Syndicate.Send(string.Format("{0} has awarded 1 Guide Donation for helping newbies.", Team.Leader.Name));
                     Team.Send(new MsgTalk(string.Format("{0} has awarded {1} virtue points as reward for helping newbies.",
                             Team.Leader.Name, vp), ChatTone.TEAM));
                 }
 
                 if (Level >= 3)
                 {
-                    Magic pMgc;
+                    //Magic pMgc;
                     switch (Profession)
                     {
                         case 10:

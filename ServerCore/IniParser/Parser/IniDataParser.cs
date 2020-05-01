@@ -15,7 +15,7 @@ namespace IniParser.Parser
     {
         #region Private
         // Holds a list of the exceptions catched while parsing
-        private List<Exception> _errorExceptions;
+        private readonly List<Exception> _errorExceptions;
         #endregion
 
         #region Initialization
@@ -37,10 +37,7 @@ namespace IniParser.Parser
         /// </param>
         public IniDataParser(IniParserConfiguration parserConfiguration)
         {
-            if (parserConfiguration == null)
-                throw new ArgumentNullException("parserConfiguration");
-
-            Configuration = parserConfiguration;
+            Configuration = parserConfiguration ?? throw new ArgumentNullException("parserConfiguration");
 
             _errorExceptions = new List<Exception>();
         }
@@ -135,7 +132,7 @@ namespace IniParser.Parser
                     // Check if there are actually sections in the file
                     if (iniData.Sections.Count > 0)
                     {
-                        iniData.Sections.GetSectionData(_currentSectionNameTemp).TrailingComments
+                        iniData.Sections.GetSectionData(_currentSectionNameTemp).Comments
                             .AddRange(_currentCommentListTemp);
                     }
                     // No sections, put the comment in the last key value pair
@@ -234,7 +231,9 @@ namespace IniParser.Parser
         {
             string comment = Configuration.CommentRegex.Match(line).Value.Trim();
 
+            #pragma warning disable IDE0057 // Usar el operador de intervalo
             _currentCommentListTemp.Add(comment.Substring(1, comment.Length - 1));
+            #pragma warning restore IDE0057 // Usar el operador de intervalo
 
             return line.Replace(comment, "").Trim();
         }
@@ -307,7 +306,9 @@ namespace IniParser.Parser
             string sectionName = Configuration.SectionRegex.Match(line).Value.Trim();
 
             // ... and remove section's delimiters to get just the name
+            #pragma warning disable IDE0057 // Usar el operador de intervalo
             sectionName = sectionName.Substring(1, sectionName.Length - 2).Trim();
+            #pragma warning restore IDE0057 // Usar el operador de intervalo
 
             // Check that the section's name is not empty
             if (sectionName == string.Empty)
@@ -334,7 +335,9 @@ namespace IniParser.Parser
             currentIniData.Sections.AddSection(sectionName);
 
             // Save comments read until now and assign them to this section
+            #pragma warning disable CS0618 // El tipo o el miembro están obsoletos
             currentIniData.Sections.GetSectionData(sectionName).LeadingComments = _currentCommentListTemp;
+            #pragma warning restore CS0618 // El tipo o el miembro están obsoletos
             _currentCommentListTemp.Clear();
 
         }

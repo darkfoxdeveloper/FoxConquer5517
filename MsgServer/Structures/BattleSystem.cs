@@ -344,7 +344,7 @@ namespace MsgServer.Structures
                 if (1 < nAtkLev && nAtkLev <= 19)
                 {
                     if (nDeltaLev < 3)
-                        ;
+                    { }
                     else if (3 <= nDeltaLev && nDeltaLev < 6)
                         nDrop = nDrop / 5;
                     else
@@ -353,7 +353,7 @@ namespace MsgServer.Structures
                 else if (19 < nAtkLev && nAtkLev <= 49)
                 {
                     if (nDeltaLev < 5)
-                        ;
+                    { }
                     else if (5 <= nDeltaLev && nDeltaLev < 10)
                         nDrop = nDrop / 5;
                     else
@@ -362,7 +362,7 @@ namespace MsgServer.Structures
                 else if (49 < nAtkLev && nAtkLev <= 85)
                 {
                     if (nDeltaLev < 4)
-                        ;
+                    { }
                     else if (4 <= nDeltaLev && nDeltaLev < 8)
                         nDrop = nDrop / 5;
                     else
@@ -371,7 +371,7 @@ namespace MsgServer.Structures
                 else if (85 < nAtkLev && nAtkLev <= 112)
                 {
                     if (nDeltaLev < 3)
-                        ;
+                    { }
                     else if (3 <= nDeltaLev && nDeltaLev < 6)
                         nDrop = nDrop / 5;
                     else
@@ -380,7 +380,7 @@ namespace MsgServer.Structures
                 else if (112 < nAtkLev && nAtkLev <= 120)
                 {
                     if (nDeltaLev < 2)
-                        ;
+                    { }
                     else if (2 <= nDeltaLev && nDeltaLev < 4)
                         nDrop = nDrop / 5;
                     else
@@ -389,7 +389,7 @@ namespace MsgServer.Structures
                 else if (120 < nAtkLev && nAtkLev <= 130)
                 {
                     if (nDeltaLev < 2)
-                        ;
+                    { }
                     else if (2 <= nDeltaLev && nDeltaLev < 4)
                         nDrop = nDrop / 5;
                     else
@@ -398,7 +398,7 @@ namespace MsgServer.Structures
                 else if (130 < nAtkLev && nAtkLev <= 140)
                 {
                     if (nDeltaLev < 2)
-                        ;
+                    { }
                     else if (2 <= nDeltaLev && nDeltaLev < 4)
                         nDrop = nDrop / 5;
                     else

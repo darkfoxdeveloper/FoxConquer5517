@@ -392,7 +392,7 @@ namespace MsgServer.Structures.Actions
                     if (myLength < 100)
                         lastIndex = myLength;
                     string txt = param.Substring(0, lastIndex);
-                    param = param.Substring(lastIndex, myLength - lastIndex);
+                    param = param[lastIndex..myLength];
                     myLength -= lastIndex;
                     m_pReplies.Add(new MsgTaskDialog(MsgTaskDialog.DIALOG, txt));
                 }
@@ -793,6 +793,8 @@ namespace MsgServer.Structures.Actions
                                 return targetNpc.Lookface == long.Parse(szData);
                             case "=":
                                 return targetNpc.SetAttribute(ClientUpdateType.MESH, long.Parse(szData), true);
+                            default:
+                                break;
                         }
                         return false;
                     }
@@ -854,8 +856,7 @@ namespace MsgServer.Structures.Actions
             {
                 ServerKernel.SendMessageToAll(string.Format("{0} has won.", score.Name), ChatTone.CENTER);
 
-                Syndicate syn;
-                if (ServerKernel.Syndicates.TryGetValue(score.Identity, out syn))
+                if (ServerKernel.Syndicates.TryGetValue(score.Identity, out Syndicate syn))
                 {
                     pNpc.SetOwnerIdentity(syn.Identity);
                     pNpc.SendToRange();
@@ -877,8 +878,7 @@ namespace MsgServer.Structures.Actions
                     ChatTone.TOP_LEFT);
 
                 uint oldOwner = pNpc.OwnerIdentity;
-                Syndicate syn;
-                if (ServerKernel.Syndicates.TryGetValue(score.Identity, out syn))
+                if (ServerKernel.Syndicates.TryGetValue(score.Identity, out Syndicate syn))
                 {
                     pNpc.SetOwnerIdentity(syn.Identity);
                     pNpc.SendToRange();
@@ -887,7 +887,7 @@ namespace MsgServer.Structures.Actions
                     MsgWarFlag pMsg = new MsgWarFlag
                     {
                         Type = WarFlagType.WAR_BASE_DOMINATE,
-                        Identity = pNpc.Identity%10
+                        Identity = pNpc.Identity % 10
                     };
                     syn.Send(pMsg);
                     // deactivate the effect on the other syn
@@ -995,23 +995,21 @@ namespace MsgServer.Structures.Actions
             {
                 case "map_user":
                     {
-                        Map map;
-                        if (!ServerKernel.Maps.TryGetValue(data, out map))
+                        if (!ServerKernel.Maps.TryGetValue(data, out Map map))
                             return false;
                         amount = map.Players.Count;
                         break;
                     }
                 case "alive_user":
                     {
-                        Map map;
-                        if (!ServerKernel.Maps.TryGetValue(data, out map))
+                        if (!ServerKernel.Maps.TryGetValue(data, out Map map))
                             return false;
                         foreach (var usr in map.Players.Values.Where(x => x.IsAlive))
                             amount++;
                         break;
                     }
                 default:
-                    ServerKernel.Log.SaveLog(string.Format("ERROR: ACTION {0} invalid param"), false, LogType.ERROR);
+                    ServerKernel.Log.SaveLog(string.Format("ERROR: ACTION {0} invalid param", _params[0]), false, LogType.ERROR);
                     break;
             }
 
@@ -1023,6 +1021,8 @@ namespace MsgServer.Structures.Actions
                     return amount <= int.Parse(_params[2]);
                 case ">=":
                     return amount >= int.Parse(_params[2]);
+                default:
+                    break;
             }
 
             return false;
@@ -1166,7 +1166,7 @@ namespace MsgServer.Structures.Actions
             {
                 if (m_pUser == null)
                 {
-                    ServerKernel.Log.SaveLog(string.Format("ACTION {0}: Invalid map identity or _pUser class is set null"), false);
+                    ServerKernel.Log.SaveLog(string.Format("ACTION {0}: Invalid map identity or _pUser class is set null", action.Id), false);
                     return false;
                 }
                 map = m_pUser.Map;
@@ -3188,6 +3188,8 @@ namespace MsgServer.Structures.Actions
                                 return m_pUser.Strength == ushort.Parse(value);
                             case "<":
                                 return m_pUser.Strength < ushort.Parse(value);
+                            default:
+                                break;
                         }
                         return false;
                     }
@@ -3218,6 +3220,8 @@ namespace MsgServer.Structures.Actions
                                 return m_pUser.Vitality == ushort.Parse(value);
                             case "<":
                                 return m_pUser.Vitality < ushort.Parse(value);
+                            default:
+                                break;
                         }
                         return false;
                     }
@@ -4409,7 +4413,7 @@ namespace MsgServer.Structures.Actions
             string opt = param[1];
             long value = long.Parse(param[2]);
 
-            long varVal = 0;
+            //long varVal = 0;
 
             if (opt == "/=" && value == 0)
                 return false; // division by zero
@@ -5839,8 +5843,8 @@ namespace MsgServer.Structures.Actions
         #region 2011 - Event Erase
         private bool ACTIONEVENTERASE(string param)
         {
-            uint idMap;
-            uint nType;
+            //uint idMap;
+            //uint nType;
             //string szName;
             string[] _params = GetSafeParam(param);
             if (_params.Count() < 2)
@@ -5978,7 +5982,7 @@ namespace MsgServer.Structures.Actions
         {
             int varIdx = szParam.IndexOf("(", StringComparison.CurrentCulture) + 1;
             int endIdx = szParam.IndexOf(")", StringComparison.CurrentCulture);
-            return szParam.Substring(varIdx, endIdx - varIdx);
+            return szParam[varIdx..endIdx];
         }
 
         private byte VarId(string szParam)

@@ -9,7 +9,7 @@ namespace IniParser.Model
     /// </summary>
     public class SectionData : ICloneable
     {
-        IEqualityComparer<string> _searchComparer;
+        readonly IEqualityComparer<string> _searchComparer;
         #region Initialization
 
         public SectionData(string sectionName)
@@ -65,8 +65,8 @@ namespace IniParser.Model
         /// </summary>
         public void ClearComments()
         {
-            LeadingComments.Clear();
-            TrailingComments.Clear();
+            Comments.Clear();
+            Comments.Clear();
             Keys.ClearComments();
         }
 
@@ -89,13 +89,13 @@ namespace IniParser.Model
         /// <param name="toMergeSection"></param>
         public void Merge(SectionData toMergeSection)
         {
-            foreach (var comment in toMergeSection.LeadingComments) 
-                LeadingComments.Add(comment);
+            foreach (var comment in toMergeSection.Comments)
+                Comments.Add(comment);
                 
             Keys.Merge(toMergeSection.Keys);
 
-            foreach(var comment in toMergeSection.TrailingComments) 
-                TrailingComments.Add(comment);
+            foreach(var comment in toMergeSection.Comments)
+                Comments.Add(comment);
         }
 
 		#endregion

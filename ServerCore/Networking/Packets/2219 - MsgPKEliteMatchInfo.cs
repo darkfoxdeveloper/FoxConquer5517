@@ -87,7 +87,7 @@ namespace ServerCore.Networking.Packets
             set { WriteBoolean(value, 20); }
         }
 
-        private int m_nStartOffset = 24;
+        //private int m_nStartOffset = 24;
 
         public void AppendMatch(uint idMatch, ushort idxMatch, ElitePkRoleStatusFlag flag, UserMatchStatus[] pRoles)
         {
