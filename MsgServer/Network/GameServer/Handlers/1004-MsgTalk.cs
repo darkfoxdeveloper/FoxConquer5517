@@ -9,10 +9,6 @@
 // Last Edit: 2016/11/24 11:02
 // Created: 2016/11/24 11:02
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using DB.Entities;
 using DB.Repositories;
 using MsgServer.Structures.Entities;
@@ -22,6 +18,10 @@ using MsgServer.Structures.World;
 using ServerCore.Common;
 using ServerCore.Common.Enums;
 using ServerCore.Networking.Packets;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace MsgServer.Network.GameServer.Handlers
 {
@@ -41,12 +41,15 @@ namespace MsgServer.Network.GameServer.Handlers
         /// <param name="pMsg">The packet being processed.</param>
         public static void ProcessChatMessage(Client pClient, MsgTalk pMsg)
         {
-            // Error check the message to ensure it really is coming from the sender:
-            if (pClient == null || !pClient.IsOnline())
+            if (ServerCore.Utils.IsWindows)
             {
-                if (pClient != null)
-                    pClient.Disconnect();
-                return;
+                // Error check the message to ensure it really is coming from the sender:
+                if (pClient == null || !pClient.IsOnline())
+                {
+                    if (pClient != null)
+                        pClient.Disconnect();
+                    return;
+                }
             }
 
             // Is the message being sent a command for the server?
