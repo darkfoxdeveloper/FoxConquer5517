@@ -327,7 +327,7 @@ namespace MsgServer
         public static void UpdateTitle()
         {
             DateTime now = DateTime.Now;
-            Console.Title = string.Format("[{0}] FoxConquer Project - Server Time: {1:0000}/{2:00}/{3:00} {4:00}:{5:00} - Online/Max: {6}/{7}",
+            Console.Title = string.Format("[{0}] FoxConquer Project. GameServer - Server Time: {1:0000}/{2:00}/{3:00} {4:00}:{5:00} - Online/Max: {6}/{7}",
                 ServerKernel.ServerName, now.Year, now.Month, now.Day, now.Hour, now.Minute, ServerKernel.Players.Count,
                 ServerKernel.OnlineRecord);
         }

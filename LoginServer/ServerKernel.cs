@@ -39,7 +39,7 @@ namespace LoginServer
         /// <summary>
         /// The server name shown in the Login Server Console Title.
         /// </summary>
-        public static string ServerName = "Ftw! Masters";
+        public static string ServerName = "FoxConquer";
 
         /// <summary>
         /// The message sent by this server to the MsgServer after a successfull connection

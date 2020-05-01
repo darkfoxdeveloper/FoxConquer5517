@@ -402,7 +402,7 @@ namespace LoginServer
         public static void UpdateWindowTitle()
         {
             var now = DateTime.Now;
-            Console.Title = string.Format("[{0}] Conquer Online Login Server - {4:00}/{5:00}/{6:00} {1:00}:{2:00}:{3:00} - Online: {7}",
+            Console.Title = string.Format("[{0}] FoxConquer Project. LoginServer - {4:00}/{5:00}/{6:00} {1:00}:{2:00}:{3:00} - Online: {7}",
                 ServerKernel.ServerName, now.Hour, now.Minute, now.Second,
                 now.Month, now.Day, now.Year, OnlineCount());
         }
