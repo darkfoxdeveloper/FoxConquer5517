@@ -28,6 +28,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 using System.Text;
 
 namespace MsgServer
@@ -60,6 +61,9 @@ namespace MsgServer
                 // set close handler
                 m_pHandler += Handler;
                 SetConsoleCtrlHandler(m_pHandler, true);
+            } else
+            {
+                AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
             }
 
             ServerKernel.Log = new LogWriter(Environment.CurrentDirectory + @"\");
@@ -152,6 +156,12 @@ namespace MsgServer
             SaveAll();
 
             Environment.Exit(0);
+        }
+
+        private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        {
+            Console.WriteLine("Server has been closed. Saving all.");
+            SaveAll();
         }
 
         public static void SaveAll()
@@ -379,6 +389,7 @@ namespace MsgServer
             }
 
             // todo save information
+            SaveAll();
 
             return true;
         }

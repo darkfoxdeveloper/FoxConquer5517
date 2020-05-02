@@ -183,12 +183,7 @@ namespace MsgServer.Network.GameServer.Handlers
                             return;
                     }
 
-                    uint money = 10000, emoney = 270;
-                    if (pClient.VipLevel == 6)
-                    {
-                        money *= 10;
-                        emoney *= 5;
-                    }
+                    uint money = 100000, emoney = 25;
 
                     ushort startLife = (ushort) (((points.Agility + points.Strength + points.Spirit)*3) + points.Vitality*24);
 

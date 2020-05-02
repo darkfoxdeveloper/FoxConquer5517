@@ -546,7 +546,7 @@ namespace MsgServer.Structures.Items
                 value = null;
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 value = null;
                 return false;

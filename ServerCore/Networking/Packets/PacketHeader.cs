@@ -135,6 +135,8 @@ namespace ServerCore.Networking.Packets
         MSG_SYN_RECUIT_ADVERTISING = 2225,
         MSG_SYN_RECRUIT_ADVERTISING_LIST = 2226,
         MSG_SYN_RECRUIT_ADVERTISING_OPT = 2227,
+        MSG_TEAM_PK_ARENA = 2232,
+        MSG_TEAM_ARENA = 2245,
         MSG_SUB_PRO = 2320,
         MSG_AURA = 2410,
         MSG_WALK = 10005,

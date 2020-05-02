@@ -31,9 +31,6 @@ namespace MsgServer.Structures.World
         private Map m_pMap;
         private TimeOut m_pTimer;
         private Random m_pRandom = new Random();
-        private Monster m_pDemo;
-
-        private bool m_bIsDynamic = false;
 
         public ConcurrentDictionary<uint, Monster> Collection;
 
@@ -71,7 +68,6 @@ namespace MsgServer.Structures.World
             }
 
             m_pCenter = new Point(m_dbGen.BoundX + (m_dbGen.BoundCx / 2), m_dbGen.BoundY + (m_dbGen.BoundCy / 2));
-            m_bIsDynamic = true;
             Collection = new ConcurrentDictionary<uint, Monster>();
             FirstGeneration();
         }
@@ -195,21 +191,21 @@ namespace MsgServer.Structures.World
         {
             m_pTimer = new TimeOut(m_dbGen.RestSecs);
             m_pTimer.Startup(m_dbGen.RestSecs);
-            m_pDemo = new Monster(m_dbMonster, 0, this)
-            {
-                Action = EntityAction.STAND,
-                AttackHitRate = (ushort)m_dbMonster.AttackSpeed,
-                AttackRange = m_dbMonster.AttackRange,
-                Direction = (FacingDirection)m_pRandom.Next(0, 7),
-                Life = (uint)m_dbMonster.Life,
-                Mana = (ushort)m_dbMonster.Mana,
-                ViewRange = m_dbMonster.ViewRange,
-                Level = (byte)m_dbMonster.Level,
-                MapIdentity = m_pMap.Identity,
-                MapX = 0,
-                MapY = 0,
-                Lookface = m_dbMonster.Lookface
-            };
+            //m_pDemo = new Monster(m_dbMonster, 0, this)
+            //{
+            //    Action = EntityAction.STAND,
+            //    AttackHitRate = (ushort)m_dbMonster.AttackSpeed,
+            //    AttackRange = m_dbMonster.AttackRange,
+            //    Direction = (FacingDirection)m_pRandom.Next(0, 7),
+            //    Life = (uint)m_dbMonster.Life,
+            //    Mana = (ushort)m_dbMonster.Mana,
+            //    ViewRange = m_dbMonster.ViewRange,
+            //    Level = (byte)m_dbMonster.Level,
+            //    MapIdentity = m_pMap.Identity,
+            //    MapX = 0,
+            //    MapY = 0,
+            //    Lookface = m_dbMonster.Lookface
+            //};
 
             for (int i = 0; i < m_dbGen.MaxPerGen; i++)
             {

@@ -1193,7 +1193,7 @@ namespace MsgServer.Structures
                             if (pUser.BattlePower <= m_pOwner.BattlePower) // caster does have more bp than victim
                             {
                                 pUser.DetachStatus(FlagInt.FLY);//pUser.Status.RemoveStatus0(Effect0.FLY));
-                                var special = InteractionEffect.NONE;
+                                //var special = InteractionEffect.NONE;
                                 nPower = (int)(pUser.MaxLife * ((m_pMagic.Power % 10000) / 100f));
                             }
                             else
@@ -1207,7 +1207,7 @@ namespace MsgServer.Structures
                                 if (Calculations.ChanceCalc(pct)) // if success, remove fly of target
                                 {
                                     pUser.DetachStatus(FlagInt.FLY); //pUser.Status.RemoveStatus0(Effect0.FLY));
-                                    var special = InteractionEffect.NONE;
+                                    //var special = InteractionEffect.NONE;
                                     nPower = (int)(pUser.MaxLife * ((m_pMagic.Power % 10000) / 100f));
                                 }
                             }
@@ -1627,7 +1627,7 @@ namespace MsgServer.Structures
             int nTimes = 0;
             ulong nStatus = 0;
 
-            int effectType = 1;
+            //int effectType = 1;
 
             var special = InteractionEffect.NONE;
 
@@ -1650,7 +1650,7 @@ namespace MsgServer.Structures
                                 if (m_pMagic.Status > 64)
                                 {
                                     nStatus = 1UL << (int)(m_pMagic.Status - 64);
-                                    effectType = 2;
+                                    //effectType = 2;
                                 }
                                 else
                                     nStatus = 1UL << (int)m_pMagic.Status;

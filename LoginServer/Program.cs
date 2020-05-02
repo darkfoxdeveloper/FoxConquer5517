@@ -21,6 +21,7 @@ using IniParser.Model;
 using LoginServer.Network.LoginServer;
 using LoginServer.Network.MsgServer;
 using LoginServer.Threading;
+using Microsoft.VisualBasic.CompilerServices;
 using ServerCore.Common;
 using ServerCore.Security;
 
@@ -37,7 +38,7 @@ namespace LoginServer
 
             try
             {
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                if (ServerCore.Utils.IsWindows)
                 {
                     ServerKernel.ConfigReader = new IniFileName(Environment.CurrentDirectory + @"\Login.cfg");
                 } else
@@ -91,7 +92,7 @@ namespace LoginServer
 
         private static void ServerStartup()
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (ServerCore.Utils.IsWindows)
             {
                 BlowfishCipher.InitialKey = Encoding.ASCII.GetBytes(ServerKernel.ConfigReader.GetEntryValue("Blowfish", "Key").ToString());
             }
@@ -111,7 +112,7 @@ namespace LoginServer
             }
 
             ServerKernel.Log.SaveLog("Reading configuration file...", true, "Login_Server");
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (ServerCore.Utils.IsWindows)
             {
                 ServerKernel.LoginPort = int.Parse(ServerKernel.ConfigReader.GetEntryValue("ServerConfig", "LISTEN_PORT").ToString());
             } else

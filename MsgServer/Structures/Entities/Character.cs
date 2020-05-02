@@ -179,7 +179,6 @@ namespace MsgServer.Structures.Entities
         private uint m_lastUsedItemtype;
         // event
         private int m_nQuizCancelTime;
-        private int m_nMineCount;
         // guide and event
         private float m_fMentorExp;
         private ushort m_usMentorBless;
@@ -7489,13 +7488,11 @@ namespace MsgServer.Structures.Entities
             }
 
             m_tMine.Startup(3000);
-            m_nMineCount = 0;
         }
 
         public void StopMine()
         {
             m_tMine.Clear();
-            m_nMineCount = 0;
         }
 
         public void ProcessMineTimer()

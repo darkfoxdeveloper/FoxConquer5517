@@ -540,7 +540,6 @@ namespace MsgServer.Network.GameServer.Handlers
 
                 #endregion
                 #region 94 - Revive
-
                 case GeneralActionType.REVIVE:
                 {
                     if (pClient.Character.IsAlive || !pClient.Character.CanRevive())

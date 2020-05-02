@@ -23,7 +23,7 @@ namespace MsgServer.Structures
     public class Guide
     {
         private Character m_pOwner;
-        private DbMentorAccess m_dbReward;
+        //private DbMentorAccess m_dbReward;
 
         private uint m_dwIdentity;
         private string m_szName;

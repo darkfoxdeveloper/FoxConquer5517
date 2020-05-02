@@ -37,12 +37,29 @@ namespace MsgServer.Network.GameServer.Handlers
             {
                 pUser.InteractingNpc = interactedNpc;
             }
-            if (pUser.InteractingNpc != null && pUser.InteractingNpc.Identity >= 60001 && pUser.InteractingNpc.Identity <= 70000)
+            if (pUser.InteractingNpc != null && pUser.InteractingNpc.Identity >= 60001 && pUser.InteractingNpc.Identity <= 70000 || pUser.InteractingNpc.Identity == 1209)
             {
                 TQDialog dialog = new TQDialog(pUser);
                 dialog.SetAvatar(0);
                 switch (pUser.InteractingNpc.Identity)
                 {
+                    case 1209:
+                        {
+                            dialog.SetAvatar(1);
+                            switch (controlId)
+                            {
+                                case 0:
+                                    {
+                                        dialog.SetAvatar(82);
+                                        dialog.AddText("Welcome to FoxConquer! This is a beta server when it is no longer beta you will continue to keep all the inventory and the level. Enjoy this server and report any bug you find :) ");
+                                        dialog.AddText("You recibe 215 CPs after play each hour!");
+                                        dialog.AddOption("Thanks", 255);
+                                        dialog.Show();
+                                        break;
+                                    }
+                            }
+                            break;
+                        }
                     case 60001:
                         {
                             dialog.SetAvatar(50);
@@ -149,9 +166,16 @@ namespace MsgServer.Network.GameServer.Handlers
                     default:
                         {
                             dialog.SetAvatar(1);
-                            dialog.AddText("Sorry but this npc not have dialog");
-                            dialog.AddOption(":(", 255);
-                            dialog.Show();
+                            switch (controlId)
+                            {
+                                case 0:
+                                    {
+                                        dialog.AddText("Sorry but this npc not have dialog");
+                                        dialog.AddOption(":(", 255);
+                                        dialog.Show();
+                                        break;
+                                    }
+                            }
                             break;
                         }
                 }

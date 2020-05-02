@@ -569,6 +569,28 @@ namespace MsgServer.Network.GameServer
             Handlers.Handlers.HandleWarFlag(pClient.Character, new MsgWarFlag(pBuffer));
         }
         #endregion
+        #region 2232 - MsgTeamPkArena
+        [PacketHandlerType(PacketType.MSG_TEAM_PK_ARENA)]
+        public void ProcessTeamPKArena(Client pClient, byte[] pBuffer)
+        {
+            if (pClient == null || pClient.Character == null)
+                return;
+
+            pClient.SendMessage("Not available yet!", ServerCore.Common.Enums.ChatTone.SYSTEM);
+            return;
+        }
+        #endregion
+        #region 2245 - MsgTeamArena
+        [PacketHandlerType(PacketType.MSG_TEAM_ARENA)]
+        public void ProcessTeamArena(Client pClient, byte[] pBuffer)
+        {
+            if (pClient == null || pClient.Character == null)
+                return;
+
+            pClient.SendMessage("Not available yet!", ServerCore.Common.Enums.ChatTone.SYSTEM);
+            return;
+        }
+        #endregion
         #region 2320 - MsgSubPro
         [PacketHandlerType(PacketType.MSG_SUB_PRO)]
         public void ProcessSubPro(Client pClient, byte[] pBuffer)

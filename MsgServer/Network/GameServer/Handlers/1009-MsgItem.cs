@@ -1152,6 +1152,13 @@ namespace MsgServer.Network.GameServer.Handlers
                     break;
                 }
                 #endregion
+                #region 45 - Alternate Equipment
+                case ItemAction.ALTERNATE_EQUIPMENT:
+                    {
+                        pRole.Send("This function is not available yet.");
+                        break;
+                    }
+                #endregion
                 #region 48 - Merge Items
                 case ItemAction.MERGE_ITEMS:
                 {

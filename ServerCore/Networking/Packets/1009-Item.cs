@@ -149,6 +149,7 @@ namespace ServerCore.Networking.Packets
         TORTOISE_COMPOSE = 40,
         ACTIVATE_ACCESSORY = 41,
         SOCKET_EQUIPMENT = 43,
+        ALTERNATE_EQUIPMENT = 45,
         DISPLAY_GEARS = 46,
         MERGE_ITEMS = 48,
         SPLIT_ITEMS = 49,
