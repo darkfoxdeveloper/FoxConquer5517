@@ -5226,18 +5226,7 @@ namespace MsgServer.Structures.Entities
             if (Level > ServerKernel.MAX_UPLEVEL)
                 return false;
 
-            if (Level + level <= 0)
-                return false;
-
-            int addLev = level;
-            if (addLev + Level >= ServerKernel.MAX_UPLEVEL)
-                addLev = ServerKernel.MAX_UPLEVEL - Level;
-
-            if (addLev < 0)
-                return false;
-
-            //AdditionalPoints += (ushort)(addLev * 3);
-            Level = (byte)addLev;
+            Level = (byte)level;
             Owner.Screen.Send(new MsgAction(Identity, 0, 0, 0, GeneralActionType.LEVELED), true);
             return true;
         }
@@ -8289,10 +8278,10 @@ namespace MsgServer.Structures.Entities
             {
                 if (m_tOnlineTime.ToNextTime())
                 {
-                    AwardEmoney(215, false);
-                    AwardMoney(150000, false);
+                    AwardEmoney(100, false);
+                    AwardMoney(50000, false);
                     AwardStudyPoints(200, false);
-                    Send("You received 215 CPs, 150,000 silvers and 200 Study Points for staying 30 minutes online.",
+                    Send("You received 100 CPs, 50,000 silvers and 200 Study Points for staying 30 minutes online.",
                         ChatTone.TALK);
                 }
             }

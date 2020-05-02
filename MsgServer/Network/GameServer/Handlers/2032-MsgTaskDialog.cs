@@ -52,7 +52,7 @@ namespace MsgServer.Network.GameServer.Handlers
                                     {
                                         dialog.SetAvatar(82);
                                         dialog.AddText("Welcome to FoxConquer! This is a beta server when it is no longer beta you will continue to keep all the inventory and the level. Enjoy this server and report any bug you find :) ");
-                                        dialog.AddText("You recibe 215 CPs after play each hour!");
+                                        dialog.AddText("You receive 100 CPs, 50,000 silvers and 200 Study Points for staying 30 minutes online!");
                                         dialog.AddOption("Thanks", 255);
                                         dialog.Show();
                                         break;

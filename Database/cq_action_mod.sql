@@ -1,0 +1,2 @@
+UPDATE zf.cq_action SET param = "FoxConquer is a beta server for now but you will keep your progress." WHERE id = 0104;
+UPDATE zf.cq_action SET param = "Welcome to FoxConquer Online!  If you find any bugs or have any suggestion, don't hesitate on telling us." WHERE id = 0102;

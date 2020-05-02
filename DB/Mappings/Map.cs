@@ -21,7 +21,7 @@ namespace DB.Mappings
             LazyLoad();
             Id(x => x.Identity).GeneratedBy.Identity().Not.Nullable().Column("id");
             Map(x => x.Name).Not.Nullable().Column("name").Default("");
-            Map(x => x.Description).Column("describe_text").Default("by Felipe Vieira");
+            Map(x => x.Description).Column("describe_text").Default("");
             Map(x => x.MapDoc).Column("mapdoc");
             Map(x => x.Type).Column("type").Not.Nullable();
             Map(x => x.OwnerId).Column("owner_id");
