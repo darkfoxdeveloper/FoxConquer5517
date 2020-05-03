@@ -259,34 +259,34 @@ namespace MsgServer.Structures.Events
                 switch (GetRank(plr.Identity))
                 {
                     case 1:
-                        plr.AwardMoney(10000000);
-                        plr.AwardEmoney(21500);
+                        plr.AwardMoney(3000000);
+                        plr.AwardEmoney(1000);
                         ServerKernel.SendMessageToAll(
                             string.Format(
-                                "Congratulations! {0} has won the Score PK Tournament and awarded 10,000,000 silvers and 21,500 CPs.",
+                                "Congratulations! {0} has won the Score PK Tournament and awarded 3,000,000 silvers and 1,000 CPs.",
                                 plr.Name), ChatTone.TALK);
                         break;
                     case 2:
-                        plr.AwardMoney(7500000);
-                        plr.AwardEmoney(10750);
+                        plr.AwardMoney(2000000);
+                        plr.AwardEmoney(500);
                         ServerKernel.SendMessageToAll(
                             string.Format(
-                                "{0} has got second place in the Score PK Tournament and awarded 7,500,000 silvers and 10,750 CPs.",
+                                "{0} has got second place in the Score PK Tournament and awarded 2,000,000 silvers and 500 CPs.",
                                 plr.Name), ChatTone.TALK);
                         break;
                     case 3:
-                        plr.AwardMoney(5000000);
-                        plr.AwardEmoney(6450);
+                        plr.AwardMoney(1000000);
+                        plr.AwardEmoney(250);
                         ServerKernel.SendMessageToAll(
                             string.Format(
-                                "{0} has got third place in the Score PK Tournament and awarded 5,000,000 silvers and 6,450 CPs.",
+                                "{0} has got third place in the Score PK Tournament and awarded 1,000,000 silvers and 250 CPs.",
                                 plr.Name), ChatTone.TALK);
                         break;
                     default:
-                        plr.AwardMoney(3000000);
-                        plr.AwardEmoney(4300);
+                        plr.AwardMoney(100000);
+                        plr.AwardEmoney(100);
                         plr.Send(
-                            "You awarded 3,000,000 silvers and 4,300 CPs for participating the Score PK Tournament.");
+                            "You awarded 100,000 silvers and 100 CPs for participating the Score PK Tournament.");
                         break;
                 }
             }

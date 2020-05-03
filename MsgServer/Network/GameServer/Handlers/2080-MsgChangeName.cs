@@ -75,7 +75,7 @@ namespace MsgServer.Network.GameServer.Handlers
                         return;
                     }
 
-                    if (!pUser.ReduceEmoney(430000))
+                    if (!pUser.ReduceEmoney(5000))
                     {
                         pUser.Send(ServerString.STR_NOT_ENOUGH_EMONEY);
                         return;
@@ -91,8 +91,8 @@ namespace MsgServer.Network.GameServer.Handlers
                     };
                     if (!repo.SaveOrUpdate(pName))
                     {
-                        pUser.AwardEmoney(430000);
-                        pUser.Send("Error while trying to save your new name. You will receive your 430,000 CPs back.");
+                        pUser.AwardEmoney(5000);
+                        pUser.Send("Error while trying to save your new name. You will receive your 5,000 CPs back.");
                         return;
                     }
                     ServerKernel.SendMessageToAll(string.Format("{0} has changed his/her name to {1}. The new name will take effect after the next maintenance.", pUser.Name, szName), ChatTone.TALK);

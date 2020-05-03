@@ -147,26 +147,26 @@ namespace MsgServer
 
         public static readonly int[] CTF_MONEY_REWARD =
         {
-            1200000000,
-            1000000000,
-            800000000,
-            650000000,
-            500000000,
-            400000000,
-            300000000,
-            200000000
+            10000000,
+            9000000,
+            8000000,
+            7000000,
+            6000000,
+            5000000,
+            4000000,
+            3000000
         };
 
         public static readonly uint[] CTF_EMONEY_REWARD =
         {
-            300000,
-            200000,
-            100000,
-            60000,
-            50000,
-            40000,
-            30000,
-            20000
+            5000,
+            4000,
+            3000,
+            2000,
+            1000,
+            900,
+            800,
+            700
         };
 
         public static CaptureTheFlag CaptureTheFlag = new CaptureTheFlag();
@@ -177,9 +177,9 @@ namespace MsgServer
 
         public static QuizShowEvent QuizShow;
         public static readonly int[] QUIZ_SHOW_HOUR = { 00, 02, 12, 14, 18, 22 };
-        public static readonly ushort[] QUIZ_SHOW_AWARD = { 0, 60000, 45000, 30000 };
-        public static readonly ushort[] QUIZ_SHOW_EMONEY = { 0, 10750, 6450, 4300 };
-        public static readonly uint[] QUIZ_SHOW_MONEY = { 0, 1500000, 1000000, 500000 };
+        public static readonly ushort[] QUIZ_SHOW_AWARD = { 0, 60000, 45000, 0 };
+        public static readonly ushort[] QUIZ_SHOW_EMONEY = { 1000, 500, 250, 0 };
+        public static readonly uint[] QUIZ_SHOW_MONEY = { 1000000, 500000, 250000, 0 };
         public const ushort QUIZ_TIME_PER_QUESTION = 30; // in seconds
         public const ushort QUIZ_MAX_QUESTION = 20;
         public const ushort QUIZ_MAX_EXPERIENCE = 18000;
@@ -228,18 +228,18 @@ namespace MsgServer
 
         public static uint[] SYN_SCORE_MONEY_REWARD =
         {
-            300000000,
-            250000000,
-            150000000,
-            100000000
+            300000,
+            200000,
+            100000,
+            10000
         };
 
         public static uint[] SYN_SCORE_EMONEY_REWARD =
         {
-            200000,
-            150000,
-            100000,
-            50000
+            10000,
+            8000,
+            5000,
+            1000
         };
 
         public static SyndicateScoreWar SyndicateScoreWar = new SyndicateScoreWar();
@@ -252,18 +252,18 @@ namespace MsgServer
 
         public static uint[] LineSkillGoldReward =
         {
-            15000000,
-            10000000,
-            5000000,
-            2000000
+            3000000,
+            2000000,
+            1000000,
+            100000
         };
 
         public static uint[] LineSkillEmoneyReward =
         {
-            21500,
-            10750,
-            6450,
-            2150
+            800,
+            700,
+            600,
+            500
         };
 
         #endregion

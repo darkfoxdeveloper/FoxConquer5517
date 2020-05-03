@@ -1457,15 +1457,12 @@ namespace MsgServer.Network.GameServer.Handlers
 
                         #endregion
                     #region Revive
-
                     case "/revive":
                     {
-                        //if (pClient.Character.CanRevive())
-                        //    pClient.Character.Reborn(true);
+                        if (pClient.Character.CanRevive()) pClient.Character.Reborn(true);
                         return;
                     }
-
-                        #endregion
+                    #endregion
                     #region Check Char Status
 
                     case "/userstatus":
