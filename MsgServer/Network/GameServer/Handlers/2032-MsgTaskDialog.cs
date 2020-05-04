@@ -45,19 +45,112 @@ namespace MsgServer.Network.GameServer.Handlers
                 {
                     case 1209:
                         {
-                            dialog.SetAvatar(1);
+                            dialog.SetAvatar(82);
                             switch (controlId)
                             {
                                 case 0:
                                     {
-                                        dialog.SetAvatar(82);
                                         dialog.AddText("Welcome to FoxConquer! This is a beta server when it is no longer beta you will continue to keep all the inventory and the level. Enjoy this server and report any bug you find :) ");
                                         dialog.AddText("You receive 100 CPs, 50,000 silvers and 200 Study Points for staying 30 minutes online!");
+                                        dialog.AddText("Can buy some required items for promotion here only talk me.");
+                                        dialog.AddOption("Buy Promotion Items", 1);
                                         dialog.AddOption("Thanks", 255);
-                                        dialog.Show();
+                                        break;
+                                    }
+                                case 1:
+                                    {
+                                        dialog.AddText("Have this items for promotion you can buy.");
+                                        dialog.AddOption("Buy Emerald [250 CPs]", 2);
+                                        dialog.AddOption("Buy MoonBox [500 CPs]", 3);
+                                        dialog.AddOption("Buy 20 EuxeniteOre [2000 CPs]", 4);
+                                        dialog.AddOption("No thanks", 255);
+                                        break;
+                                    }
+                                case 2: // Emerald
+                                    {
+                                        if (pUser.Emoney == 500)
+                                        {
+                                            if (pUser.Inventory.Create(1080001))
+                                            {
+                                                dialog.AddText("Here is your item!");
+                                                dialog.AddOption("Thanks", 255);
+                                            } else
+                                            {
+                                                dialog.AddText("Not have space in your inventory");
+                                                dialog.AddOption("Ok", 255);
+                                            }
+                                        } else
+                                        {
+                                            dialog.AddText("You not have 250 CPs.");
+                                            dialog.AddOption("Oh sorry", 255);
+                                        }
+                                        break;
+                                    }
+                                case 3: // MoonBox
+                                    {
+                                        if (pUser.Emoney == 250)
+                                        {
+                                            if (pUser.Inventory.Create(721080))
+                                            {
+                                                dialog.AddText("Here is your item!");
+                                                dialog.AddOption("Thanks", 255);
+                                            }
+                                            else
+                                            {
+                                                dialog.AddText("Not have space in your inventory");
+                                                dialog.AddOption("Ok", 255);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            dialog.AddText("You not have 500 CPs.");
+                                            dialog.AddOption("Oh sorry", 255);
+                                        }
+                                        break;
+                                    }
+                                case 4: // EuxeniteOre
+                                    {
+                                        if (pUser.Emoney == 250)
+                                        {
+                                            if (pUser.Inventory.Create(1072031))
+                                            {
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                pUser.Inventory.Create(1072031);
+                                                dialog.AddText("Here is your items!");
+                                                dialog.AddOption("Thanks", 255);
+                                            }
+                                            else
+                                            {
+                                                dialog.AddText("Not have space in your inventory");
+                                                dialog.AddOption("Ok", 255);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            dialog.AddText("You not have 2000 CPs.");
+                                            dialog.AddOption("Oh sorry", 255);
+                                        }
                                         break;
                                     }
                             }
+                            dialog.Show();
                             break;
                         }
                     case 60001:

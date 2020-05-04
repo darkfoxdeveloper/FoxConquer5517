@@ -344,7 +344,7 @@ namespace MsgServer.Network.GameServer.Handlers
                             item.PlayerIdentity = idRole;
                             break;
                         }
-                    case 6: // 723753
+                    case 6: // BeginnerPackLv1
                         {
                             item.Type = 723753;
                             item.PlayerIdentity = idRole;
