@@ -55,6 +55,7 @@ namespace MsgServer.Network.GameServer.Handlers
                                         dialog.AddText("Can buy some required items for promotion here only talk me.");
                                         dialog.AddOption("Buy Promotion Items", 1);
                                         dialog.AddOption("Thanks", 255);
+                                        dialog.Show();
                                         break;
                                     }
                                 case 1:
@@ -64,11 +65,12 @@ namespace MsgServer.Network.GameServer.Handlers
                                         dialog.AddOption("Buy MoonBox [500 CPs]", 3);
                                         dialog.AddOption("Buy 20 EuxeniteOre [2000 CPs]", 4);
                                         dialog.AddOption("No thanks", 255);
+                                        dialog.Show();
                                         break;
                                     }
                                 case 2: // Emerald
                                     {
-                                        if (pUser.ReduceEmoney(500))
+                                        if (pUser.ReduceEmoney(250))
                                         {
                                             if (pUser.Inventory.Create(1080001))
                                             {
@@ -84,11 +86,12 @@ namespace MsgServer.Network.GameServer.Handlers
                                             dialog.AddText("You not have 250 CPs.");
                                             dialog.AddOption("Oh sorry", 255);
                                         }
+                                        dialog.Show();
                                         break;
                                     }
                                 case 3: // MoonBox
                                     {
-                                        if (pUser.ReduceEmoney(250))
+                                        if (pUser.ReduceEmoney(500))
                                         {
                                             if (pUser.Inventory.Create(721080))
                                             {
@@ -106,6 +109,7 @@ namespace MsgServer.Network.GameServer.Handlers
                                             dialog.AddText("You not have 500 CPs.");
                                             dialog.AddOption("Oh sorry", 255);
                                         }
+                                        dialog.Show();
                                         break;
                                     }
                                 case 4: // EuxeniteOre
@@ -147,10 +151,10 @@ namespace MsgServer.Network.GameServer.Handlers
                                             dialog.AddText("You not have 2000 CPs.");
                                             dialog.AddOption("Oh sorry", 255);
                                         }
+                                        dialog.Show();
                                         break;
                                     }
                             }
-                            dialog.Show();
                             break;
                         }
                     case 60001:
