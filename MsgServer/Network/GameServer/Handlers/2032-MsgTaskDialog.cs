@@ -70,6 +70,7 @@ namespace MsgServer.Network.GameServer.Handlers
                                     {
                                         if (pUser.Emoney == 500)
                                         {
+                                            pUser.ReduceEmoney(500);
                                             if (pUser.Inventory.Create(1080001))
                                             {
                                                 dialog.AddText("Here is your item!");
@@ -90,6 +91,7 @@ namespace MsgServer.Network.GameServer.Handlers
                                     {
                                         if (pUser.Emoney == 250)
                                         {
+                                            pUser.ReduceEmoney(250);
                                             if (pUser.Inventory.Create(721080))
                                             {
                                                 dialog.AddText("Here is your item!");
@@ -110,8 +112,9 @@ namespace MsgServer.Network.GameServer.Handlers
                                     }
                                 case 4: // EuxeniteOre
                                     {
-                                        if (pUser.Emoney == 250)
+                                        if (pUser.Emoney == 2000)
                                         {
+                                            pUser.ReduceEmoney(2000);
                                             if (pUser.Inventory.Create(1072031))
                                             {
                                                 pUser.Inventory.Create(1072031);
