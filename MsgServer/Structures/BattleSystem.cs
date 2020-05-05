@@ -273,6 +273,10 @@ namespace MsgServer.Structures
                     }
                 }
 
+                #region Fix ExtraEXP By DaRkFoxDeveloper
+                nExp += (pTarget as Monster).ExtraExp;
+                #endregion
+
                 m_pOwner.AwardBattleExp(nExp, true);
 
                 if (!pTarget.IsAlive && nAdditionExp > 0)
