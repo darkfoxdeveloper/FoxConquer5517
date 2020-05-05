@@ -368,6 +368,8 @@ namespace MsgServer.Network.GameServer.Handlers
                             if (Calculations.ChanceCalc((float)nChance))
                             {
                                 item.Type = (uint)idNewType;
+                                item.Durability = dbNewType.Amount;
+                                item.MaximumDurability = dbNewType.AmountLimit;
                                 pRole.SendEffect("improveSuc", false);
                             }
                             else
