@@ -250,12 +250,6 @@ namespace MsgServer.Structures.Entities
             set { m_dbMonster.AttackRange = value; }
         }
 
-        public short ExtraExp
-        {
-            get { return m_dbMonster.ExtraExp; }
-            set { m_dbMonster.ExtraExp = value; }
-        }
-
         public EntityAction Action
         {
             get { return m_pAction; }

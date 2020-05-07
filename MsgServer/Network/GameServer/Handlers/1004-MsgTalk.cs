@@ -754,7 +754,7 @@ namespace MsgServer.Network.GameServer.Handlers
                                     KeyValuePair<uint, DbItemtype> dbItemKVP = ServerKernel.Itemtype.Where(x => x.Value.Name == command[1]).FirstOrDefault();
                                     if (command.Length == 3)
                                     {
-                                        dbItemKVP = ServerKernel.Itemtype.Where(x => x.Value.Name == command[1] && x.Value.Type.ToString()[0] == uint.Parse(command[2])).FirstOrDefault();
+                                        dbItemKVP = ServerKernel.Itemtype.Where(x => x.Value.Name == command[1] && x.Value.Type.ToString()[x.Value.Type.ToString().Length-1] == uint.Parse(command[2])).FirstOrDefault();
                                     }
                                     if (dbItemKVP.Key != 0)
                                     {
