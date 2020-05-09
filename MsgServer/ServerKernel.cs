@@ -177,9 +177,9 @@ namespace MsgServer
 
         public static QuizShowEvent QuizShow;
         public static readonly int[] QUIZ_SHOW_HOUR = { 00, 02, 12, 14, 18, 22 };
-        public static readonly ushort[] QUIZ_SHOW_AWARD = { 0, 60000, 45000, 0 };
-        public static readonly ushort[] QUIZ_SHOW_EMONEY = { 1000, 500, 250, 0 };
-        public static readonly uint[] QUIZ_SHOW_MONEY = { 1000000, 500000, 250000, 0 };
+        public static readonly ushort[] QUIZ_SHOW_AWARD = { 8000, 4000, 2500 };
+        public static readonly ushort[] QUIZ_SHOW_EMONEY = { 200, 150, 100 };
+        public static readonly uint[] QUIZ_SHOW_MONEY = { 500000, 250000, 100000 };
         public const ushort QUIZ_TIME_PER_QUESTION = 30; // in seconds
         public const ushort QUIZ_MAX_QUESTION = 20;
         public const ushort QUIZ_MAX_EXPERIENCE = 18000;

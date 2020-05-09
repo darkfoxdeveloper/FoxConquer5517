@@ -86,9 +86,9 @@ namespace MsgServer.Structures.Events
                     QuestionAmount = ServerKernel.QUIZ_MAX_QUESTION,
                     TimePerQuestion = ServerKernel.QUIZ_TIME_PER_QUESTION,
                     TimeTillStart = (ushort)(60 - DateTime.Now.Second),
-                    FirstPrize = ServerKernel.QUIZ_SHOW_AWARD[1],
-                    SecondPrize = ServerKernel.QUIZ_SHOW_AWARD[2],
-                    ThirdPrize = ServerKernel.QUIZ_SHOW_AWARD[3]
+                    FirstPrize = ServerKernel.QUIZ_SHOW_AWARD[0],
+                    SecondPrize = ServerKernel.QUIZ_SHOW_AWARD[1],
+                    ThirdPrize = ServerKernel.QUIZ_SHOW_AWARD[2]
                 };
                 pRole.Send(pMsg);
             }
@@ -100,9 +100,9 @@ namespace MsgServer.Structures.Events
                     QuestionAmount = ServerKernel.QUIZ_MAX_QUESTION,
                     TimePerQuestion = ServerKernel.QUIZ_TIME_PER_QUESTION,
                     TimeTillStart = (ushort)m_pNextQuestion.GetRemain(),
-                    FirstPrize = ServerKernel.QUIZ_SHOW_AWARD[1],
-                    SecondPrize = ServerKernel.QUIZ_SHOW_AWARD[2],
-                    ThirdPrize = ServerKernel.QUIZ_SHOW_AWARD[3]
+                    FirstPrize = ServerKernel.QUIZ_SHOW_AWARD[0],
+                    SecondPrize = ServerKernel.QUIZ_SHOW_AWARD[1],
+                    ThirdPrize = ServerKernel.QUIZ_SHOW_AWARD[2]
                 };
                 pRole.Send(pMsg);
                 pMsg = new MsgQuiz
@@ -248,9 +248,9 @@ namespace MsgServer.Structures.Events
                         TimeTillStart = (ushort)(60 - now.Second),
                         TimePerQuestion = ServerKernel.QUIZ_TIME_PER_QUESTION,
                         QuestionAmount = ServerKernel.QUIZ_MAX_QUESTION,
-                        FirstPrize = ServerKernel.QUIZ_SHOW_AWARD[1],
-                        SecondPrize = ServerKernel.QUIZ_SHOW_AWARD[2],
-                        ThirdPrize = ServerKernel.QUIZ_SHOW_AWARD[3]
+                        FirstPrize = ServerKernel.QUIZ_SHOW_AWARD[0],
+                        SecondPrize = ServerKernel.QUIZ_SHOW_AWARD[1],
+                        ThirdPrize = ServerKernel.QUIZ_SHOW_AWARD[2]
                     };
                     // send to all players
                     foreach (var plr in ServerKernel.Players.Values)
@@ -422,11 +422,11 @@ namespace MsgServer.Structures.Events
                                     {
                                         long amount =
                                             (ServerKernel.GetExpBallExperience(pUser.Character.Level) / 600) *
-                                            ServerKernel.QUIZ_SHOW_AWARD[i];
+                                            ServerKernel.QUIZ_SHOW_AWARD[i - 1];
                                         pUser.Character.AwardExperience(amount);
 
-                                        ushort emoney = ServerKernel.QUIZ_SHOW_EMONEY[i];
-                                        uint money = ServerKernel.QUIZ_SHOW_MONEY[i];
+                                        ushort emoney = ServerKernel.QUIZ_SHOW_EMONEY[i-1];
+                                        uint money = ServerKernel.QUIZ_SHOW_MONEY[i-1];
                                         pUser.Character.AwardEmoney(emoney);
                                         pUser.Character.AwardMoney(money);
                                         pUser.Character.Send(
