@@ -1489,7 +1489,7 @@ namespace MsgServer
                         ServerKernel.Monsters.Add(mob.Id, mob);
                 }
 
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && false)
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
                     IniFileName quenchRule = new IniFileName(Path.Combine(Environment.CurrentDirectory, "ini", "QuenchDropRule.ini"));
                     foreach (var szMobId in quenchRule.GetSectionNames())
