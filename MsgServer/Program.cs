@@ -66,7 +66,7 @@ namespace MsgServer
                 AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
             }
 
-            ServerKernel.Log = new LogWriter(Environment.CurrentDirectory + @"\");
+            ServerKernel.Log = new LogWriter(Environment.CurrentDirectory);
 
             Console.Title = "Starting server...";
 
@@ -82,6 +82,7 @@ namespace MsgServer
             ServerKernel.Log.SaveLog("Computer Name: " + Environment.MachineName, true, LogType.DEBUG);
             ServerKernel.Log.SaveLog("User Name: " + Environment.UserName, true, LogType.DEBUG);
             ServerKernel.Log.SaveLog("System Directory: " + Environment.SystemDirectory, true, LogType.DEBUG);
+            ServerKernel.Log.SaveLog("Current Base Directory: " + Environment.CurrentDirectory, true, LogType.DEBUG);
             ServerKernel.Log.SaveLog("Some environment variables:", true, LogType.DEBUG);
             ServerKernel.Log.SaveLog("OS=" + Environment.OSVersion, true, LogType.DEBUG);
             ServerKernel.Log.SaveLog("NUMBER_OF_PROCESSORS: " + Environment.ProcessorCount, true, LogType.DEBUG);

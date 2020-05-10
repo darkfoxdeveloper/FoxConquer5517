@@ -75,6 +75,7 @@ namespace LoginServer
             ServerKernel.Log.SaveLog("Computer Name: " + Environment.MachineName, true, "Login_Server", LogType.DEBUG);
             ServerKernel.Log.SaveLog("User Name: " + Environment.UserName, true, "Login_Server", LogType.DEBUG);
             ServerKernel.Log.SaveLog("System Directory: " + Environment.SystemDirectory, true, "Login_Server", LogType.DEBUG);
+            ServerKernel.Log.SaveLog("Current Base Directory: " + Environment.CurrentDirectory, true, LogType.DEBUG);
             ServerKernel.Log.SaveLog("Some environment variables:", true, "Login_Server", LogType.DEBUG);
             ServerKernel.Log.SaveLog("OS=" + Environment.OSVersion, true, "Login_Server", LogType.DEBUG);
             ServerKernel.Log.SaveLog("NUMBER_OF_PROCESSORS: " + Environment.ProcessorCount, true, "Login_Server", LogType.DEBUG);
