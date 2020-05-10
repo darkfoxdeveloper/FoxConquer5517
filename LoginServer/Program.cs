@@ -71,7 +71,6 @@ namespace LoginServer
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
 
-            ServerKernel.Log.SaveLog(Environment.CurrentDirectory, true, "Login_Server", LogType.DEBUG);
             ServerKernel.Log.SaveLog("Computer Name: " + Environment.MachineName, true, "Login_Server", LogType.DEBUG);
             ServerKernel.Log.SaveLog("User Name: " + Environment.UserName, true, "Login_Server", LogType.DEBUG);
             ServerKernel.Log.SaveLog("System Directory: " + Environment.SystemDirectory, true, "Login_Server", LogType.DEBUG);

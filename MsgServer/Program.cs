@@ -78,7 +78,6 @@ namespace MsgServer
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
 
-            ServerKernel.Log.SaveLog(Environment.CurrentDirectory, true, LogType.DEBUG);
             ServerKernel.Log.SaveLog("Computer Name: " + Environment.MachineName, true, LogType.DEBUG);
             ServerKernel.Log.SaveLog("User Name: " + Environment.UserName, true, LogType.DEBUG);
             ServerKernel.Log.SaveLog("System Directory: " + Environment.SystemDirectory, true, LogType.DEBUG);
