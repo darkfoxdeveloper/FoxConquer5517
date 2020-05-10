@@ -119,13 +119,13 @@ namespace MsgServer.Network.GameServer.Handlers
                         if (pMsg.Data2 >= 1)
                         {
                             uint cps = (uint) donation/50000;
-                            if (cps > pRole.BoundEmoney)
+                            if (cps > pRole.Emoney)
                             {
-                                pRole.Send(ServerString.STR_NOT_ENOUGH_EMONEY2);
+                                pRole.Send(ServerString.STR_NOT_ENOUGH_EMONEY);
                                 return;
                             }
 
-                            if (!pRole.ReduceBoundEmoney(cps, true)) return;
+                            if (!pRole.ReduceEmoney(cps, true)) return;
 
                             pRole.Nobility.Donate(donation);
                             //pRole.Send("You can only donate silvers to the empire.");
