@@ -505,7 +505,10 @@ namespace MsgServer.Structures.Society
                 return;
 
             if (pUser.SilverDonation < 2)
+            {
+                pSender.Send("you need to donate 20,000 gold to the clan to leave.");
                 return;
+            }
 
             SyndicateRank oldRank = pUser.Position;
 

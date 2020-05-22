@@ -29,7 +29,6 @@ namespace MsgServer.Network.GameServer.Handlers
                 return;
             }
 
-            uint requestedId = pMsg.TaskId;
             byte controlId = pMsg.OptionId;
 
             if (pUser.Map.GameObjects.TryGetValue(pMsg.TaskId, out IScreenObject interactedNpc) || ServerKernel.Maps[5000].GameObjects.TryGetValue(pMsg.TaskId, out interactedNpc))

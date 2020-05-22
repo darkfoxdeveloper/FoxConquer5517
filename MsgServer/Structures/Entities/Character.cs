@@ -1552,37 +1552,45 @@ namespace MsgServer.Structures.Entities
                     if (Enum.IsDefined(typeof(SocketGem), item.SocketOne))
                     {
                         var gem1 = item.SocketOne;
-                        if (item.SocketTwo > SocketGem.NORMAL_THUNDER_GEM && item.SocketTwo <= SocketGem.SUPER_THUNDER_GEM) // Thunder Gems
+                        if (item.SocketOne > SocketGem.NORMAL_THUNDER_GEM && item.SocketOne <= SocketGem.SUPER_THUNDER_GEM) // Thunder Gems
                         {
                             m_nAddFinalAttack += (int)Calculations.GetTalismanGemAttr(gem1) * multiplyAttr;
                             m_nAddFinalMagicAttack += (int)Calculations.GetTalismanGemAttr(gem1) * multiplyAttr;
                         }
-                        else if (item.SocketTwo >= SocketGem.NORMAL_GLORY_GEM && item.SocketTwo <= SocketGem.SUPER_GLORY_GEM) // Glory Gems
+                        else if (item.SocketOne >= SocketGem.NORMAL_GLORY_GEM && item.SocketOne <= SocketGem.SUPER_GLORY_GEM) // Glory Gems
                         {
                             m_nAddFinalDefense += (int)Calculations.GetTalismanGemAttr(gem1) * multiplyAttr;
                             m_nAddFinalMagicDefense += (int)Calculations.GetTalismanGemAttr(gem1) * multiplyAttr;
                         }
-                        else if (item.SocketTwo >= SocketGem.NORMAL_PHOENIX_GEM && item.SocketTwo <= SocketGem.SUPER_PHOENIX_GEM) // Phoenix Gems
+                        else if (item.SocketOne >= SocketGem.NORMAL_PHOENIX_GEM && item.SocketOne <= SocketGem.SUPER_PHOENIX_GEM) // Phoenix Gems
                         {
                             m_nPhoenixGem += Calculations.CalculateGemPercentage(gem1) * multiplyAttr;
                         }
-                        else if (item.SocketTwo >= SocketGem.NORMAL_DRAGON_GEM && item.SocketTwo <= SocketGem.SUPER_DRAGON_GEM) // Dragon Gems
+                        else if (item.SocketOne >= SocketGem.NORMAL_DRAGON_GEM && item.SocketOne <= SocketGem.SUPER_DRAGON_GEM) // Dragon Gems
                         {
                             m_nDragonGem += Calculations.CalculateGemPercentage(gem1) * multiplyAttr;
                         }
-                        else if (item.SocketTwo >= SocketGem.NORMAL_FURY_GEM && item.SocketTwo <= SocketGem.SUPER_FURY_GEM) // Fury Gems
+                        else if (item.SocketOne >= SocketGem.NORMAL_FURY_GEM && item.SocketOne <= SocketGem.SUPER_FURY_GEM) // Fury Gems
                         {
                             m_nFuryGem += Calculations.CalculateGemPercentage(gem1) * multiplyAttr;
                         }
-                        else if (item.SocketTwo >= SocketGem.NORMAL_RAINBOW_GEM && item.SocketTwo <= SocketGem.SUPER_RAINBOW_GEM) // Rainbow Gems
+                        else if (item.SocketOne >= SocketGem.NORMAL_RAINBOW_GEM && item.SocketOne <= SocketGem.SUPER_RAINBOW_GEM) // Rainbow Gems
                         {
                             m_nRainbowGem += Calculations.CalculateGemPercentage(gem1) * multiplyAttr;
                         }
-                        else if (item.SocketTwo >= SocketGem.NORMAL_MOON_GEM && item.SocketTwo <= SocketGem.SUPER_MOON_GEM) // Moon Gems
+                        else if (item.SocketOne >= SocketGem.NORMAL_KYLIN_GEM && item.SocketOne <= SocketGem.SUPER_KYLIN_GEM) // Kylin Gems
+                        {
+                            m_nKylinGem += Calculations.CalculateGemPercentage(gem1) * multiplyAttr;
+                        }
+                        else if (item.SocketOne >= SocketGem.NORMAL_VIOLET_GEM && item.SocketOne <= SocketGem.SUPER_VIOLET_GEM) // Violet Gems
+                        {
+                            m_nVioletGem += Calculations.CalculateGemPercentage(gem1) * multiplyAttr;
+                        }
+                        else if (item.SocketOne >= SocketGem.NORMAL_MOON_GEM && item.SocketOne <= SocketGem.SUPER_MOON_GEM) // Moon Gems
                         {
                             m_nMoonGem += Calculations.CalculateGemPercentage(gem1) * multiplyAttr;
                         }
-                        else if (item.SocketTwo >= SocketGem.NORMAL_TORTOISE_GEM && item.SocketTwo <= SocketGem.SUPER_TORTOISE_GEM) // Tortoise Gems
+                        else if (item.SocketOne >= SocketGem.NORMAL_TORTOISE_GEM && item.SocketOne <= SocketGem.SUPER_TORTOISE_GEM) // Tortoise Gems
                         {
                             m_nTortoiseGem += Calculations.CalculateGemPercentage(gem1) * multiplyAttr;
                         }
@@ -1617,6 +1625,14 @@ namespace MsgServer.Structures.Entities
                         else if (item.SocketTwo >= SocketGem.NORMAL_RAINBOW_GEM && item.SocketTwo <= SocketGem.SUPER_RAINBOW_GEM) // Rainbow Gems
                         {
                             m_nRainbowGem += Calculations.CalculateGemPercentage(gem2) * multiplyAttr;
+                        }
+                        else if (item.SocketTwo >= SocketGem.NORMAL_KYLIN_GEM && item.SocketTwo <= SocketGem.SUPER_KYLIN_GEM) // Kylin Gems
+                        {
+                            m_nKylinGem += Calculations.CalculateGemPercentage(gem2) * multiplyAttr;
+                        }
+                        else if (item.SocketTwo >= SocketGem.NORMAL_VIOLET_GEM && item.SocketTwo <= SocketGem.SUPER_VIOLET_GEM) // Violet Gems
+                        {
+                            m_nVioletGem += Calculations.CalculateGemPercentage(gem2) * multiplyAttr;
                         }
                         else if (item.SocketTwo >= SocketGem.NORMAL_MOON_GEM && item.SocketTwo <= SocketGem.SUPER_MOON_GEM) // Moon Gems
                         {

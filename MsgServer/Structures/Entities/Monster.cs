@@ -726,6 +726,7 @@ namespace MsgServer.Structures.Entities
         private readonly DateTime m_pEventStart = new DateTime(2016, 09, 24, 00, 00, 00);
         private readonly DateTime m_pEventEnd = new DateTime(2016, 06, 25, 23, 59, 59);
         private readonly uint[] m_pNormalGem = { 700001, 700011, 700021, 700031, 700041, 700051, 700061, 700071, 700101, 7000121 };
+        private readonly uint[] m_pDragonSouls = { 800000, 800014, 800016, 800017, 800110, 800512, 800513, 800415, 800722, 800720, 820056, 820057, 820071, 820072, 821030, 821032, 821028, 822053, 822055, 823052, 823053, 823054, 823055, 823056, 823057, 824017, 800616, 800320 };
 
         public void BeKill(IRole pRole)
         {
@@ -971,6 +972,17 @@ namespace MsgServer.Structures.Entities
             {
                 DropItem(1080001, idMapItemOwner, 0, 0, 0, 0); // emerald
             }
+
+            #region Drop P6 for 120 Boss
+            if (m_dbMonster.Boss == 1 && m_dbMonster.Level >= 120)
+            {
+                if (Calculations.ChanceCalc(.60f))
+                {
+                    uint dDragonSoul = m_pDragonSouls[ThreadSafeRandom.RandGet(m_pDragonSouls.Length) % m_pDragonSouls.Length];
+                    DropItem(dDragonSoul, idMapItemOwner, 0, 0, 0, 0); // dragon souls p4-p5-p6
+                }
+            }
+            #endregion
 
             int nChance = BattleSystem.AdjustDrop(200, nAtkLev, Level);
             if (nRate < Math.Min(1000, nChance))
