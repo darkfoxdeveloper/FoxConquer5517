@@ -1,0 +1,28 @@
+-Al matar con multiflecha no da exp
+-Bolsas solo permite guardar items en una M o S o L pero no usar varias de estas ya que se ven los mismos items guardados
+-Habilidad ShurikenVortex no funciona correctamente
+-Sistema Offline TG no implementado
+-Tienda en Torneo CaptureTheFlag hay drop de algun item +1 que no deberia haber
+-Equipamiento alternativo no funciona
+-Añadir fornitures
+-Añadir casa nivel 1 y nivel 2
+-Arreglar todos los torneos disponibles de arena
+-Añadir carreras de caballos
+-Falta que se tenga en cuenta las gemas violeta, furia y unicornio
+-Flower system no implementado
+-No se puede desregistrar algo ya registrado de equipo en clan
+-Potencia clan no funciona bien
+-Iluminacion no implementado
+-ArenaManagerWang solo entra 1 vez en cada pj ese evento
+-El NPC de cambiar nombre en mercado dice que cobra una cantidad de cps que luego no es (solo hay que cambiar en la tabla cq_action el texto de dialogo)
+-Pole de la war no funciona bien una vez la ganas nadie mas puede darle o algo asi
+-WeeklyPkTournamen No reclama premio solo los hecha fuera (Arreglar esto sera facil y es importante para los jugadores)
+-Puede que haya demasiado MISS en los ataques a mobs/pjs
+-Bolsa al crear personaje no es funcional o funciona solo en algunos casos
+-Habilidad CruelShade (Troy x2) no hace nada
+-Cuando bajas un item por el NPC el item no sube con met se queda mal y dice que esta en la maxima calidad
+-Palabras tales como % ñ y otra mandas numeros o palabras raras
+-Al ponerte mas de 100 de pk sale el nombre blanco y no negro
+-A las 6pm aproximadamente se queda congelado el servidor y los mobs no se mueven y tampoco se puede ver equipamiento del pj y varias cosas raras
+-No funciona el TeamArena
+-Cuando lleva 1 semana o mas online parece que empieza a fallar y no deja mover los personajes
