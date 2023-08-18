@@ -323,6 +323,14 @@ namespace MsgServer.Network.GameServer.Handlers
                         // This is what we receive when we click on OK of a Input box on a NPC
                         // Or a option of the NPC.
                         case MsgTaskDialog.ANSWER:
+                            {
+                                if (pUser.NextActions.TryGetValue(pMsg.OptionId, out INextAction action))
+                                {
+                                    pUser.NextActions.Clear();
+                                    pUser.GameAction.ProcessAction(action.Identity, pUser, pUser.InteractingNpc, pUser.TaskItem, action.IsInput ? pMsg.Text : null);
+                                }
+                                break;
+                            }
                         case MsgTaskDialog.TEXT_INPUT:
                             {
                                 if (pMsg.InteractType == 102)
@@ -337,8 +345,7 @@ namespace MsgServer.Network.GameServer.Handlers
                                 if (controlId == 255)
                                     break;
 
-                                INextAction action;
-                                if (pUser.NextActions.TryGetValue(controlId, out action))
+                                if (pUser.NextActions.TryGetValue(controlId, out INextAction action))
                                 {
                                     pUser.NextActions.Clear();
                                     if (pUser.InteractingNpc != null &&
@@ -375,8 +382,7 @@ namespace MsgServer.Network.GameServer.Handlers
                                     case 0:
                                         {
                                             pUser.NextActions.Clear();
-                                            IScreenObject pNpc = null;
-                                            if (pUser.Map.GameObjects.TryGetValue(pMsg.TaskId, out pNpc)
+                                            if (pUser.Map.GameObjects.TryGetValue(pMsg.TaskId, out IScreenObject pNpc)
                                                 || ServerKernel.Maps[5000].GameObjects.TryGetValue(pMsg.TaskId, out pNpc))
                                             {
                                                 pUser.GameAction.ProcessAction(GetActionIdentity(pUser, pNpc), pUser, pNpc, null,
@@ -396,12 +402,14 @@ namespace MsgServer.Network.GameServer.Handlers
                                     case 255:
                                         {
                                             // Close Dialog
+                                            pUser.TaskItem = null;
                                             pUser.InteractingNpc = null;
                                             pUser.NextActions.Clear();
                                             break;
                                         }
                                     default:
                                         {
+                                            pUser.TaskItem = null;
                                             pUser.InteractingNpc = null;
                                             pUser.NextActions.Clear();
                                             ServerKernel.Log.SaveLog(string.Format("Npc interact type default [{0}] not handled.", controlId), false, LogType.WARNING);
@@ -414,12 +422,43 @@ namespace MsgServer.Network.GameServer.Handlers
                 }
                 #endregion
             }
+            else if (pUser.TaskItem != null)
+            {
+                switch (pMsg.InteractType)
+                {
+                    case MsgTaskDialog.ANSWER:
+                        {
+                            if (pUser.NextActions.TryGetValue(pMsg.OptionId, out INextAction action))
+                            {
+                                pUser.NextActions.Clear();
+                                pUser.GameAction.ProcessAction(action.Identity, pUser, null, pUser.TaskItem, action.IsInput ? pMsg.Text : null);
+                            }
+                            break;
+                        }
+                    case 255:
+                        {
+                            // Close Dialog
+                            pUser.TaskItem = null;
+                            pUser.InteractingNpc = null;
+                            pUser.NextActions.Clear();
+                            break;
+                        }
+                    default:
+                        {
+                            pUser.TaskItem = null;
+                            pUser.InteractingNpc = null;
+                            pUser.NextActions.Clear();
+                            ServerKernel.Log.SaveLog(string.Format("Npc interact type default [{0}] not handled for item.", controlId), false, LogType.WARNING);
+                            break;
+                        }
+
+                }
+            }
         }
 
         private static uint GetNextAction(Character pUser, uint idAction)
         {
-            TaskStruct pTask;
-            if (ServerKernel.GameTasks.TryGetValue(idAction, out pTask))
+            if (ServerKernel.GameTasks.TryGetValue(idAction, out TaskStruct pTask))
             {
                 bool bItem1 = true,
                     bItem2 = true,
@@ -491,8 +530,7 @@ namespace MsgServer.Network.GameServer.Handlers
                         case 7: idAction = pGameNpc.Task7; break;
                     }
 
-                    TaskStruct pTask;
-                    if (ServerKernel.GameTasks.TryGetValue(idAction, out pTask))
+                    if (ServerKernel.GameTasks.TryGetValue(idAction, out TaskStruct pTask))
                     {
                         bool bItem1 = true,
                             bItem2 = true,
@@ -562,8 +600,7 @@ namespace MsgServer.Network.GameServer.Handlers
                         case 7: idAction = pGameNpc.Task7; break;
                     }
 
-                    TaskStruct pTask;
-                    if (ServerKernel.GameTasks.TryGetValue(idAction, out pTask))
+                    if (ServerKernel.GameTasks.TryGetValue(idAction, out TaskStruct pTask))
                     {
                         bool bItem1 = true,
                             bItem2 = true,
