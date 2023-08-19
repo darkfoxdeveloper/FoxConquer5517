@@ -323,14 +323,6 @@ namespace MsgServer.Network.GameServer.Handlers
                         // This is what we receive when we click on OK of a Input box on a NPC
                         // Or a option of the NPC.
                         case MsgTaskDialog.ANSWER:
-                            {
-                                if (pUser.NextActions.TryGetValue(pMsg.OptionId, out INextAction action))
-                                {
-                                    pUser.NextActions.Clear();
-                                    pUser.GameAction.ProcessAction(action.Identity, pUser, pUser.InteractingNpc, pUser.TaskItem, action.IsInput ? pMsg.Text : null);
-                                }
-                                break;
-                            }
                         case MsgTaskDialog.TEXT_INPUT:
                             {
                                 if (pMsg.InteractType == 102)
