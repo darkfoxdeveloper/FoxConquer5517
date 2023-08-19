@@ -18,9 +18,9 @@ namespace ServerCore.Networking.Packets
         /// </summary>
         /// <param name="type">The rejection message being sent to the client.</param>
         public MsgConnectEx(RejectionType type)
-            : base(32)
+            : base(12)
         {
-            WriteHeader(32, PacketType.MSG_CONNECT_EX);
+            WriteHeader(12, PacketType.MSG_CONNECT_EX);
             Authentication = (uint)type;
         }
 
@@ -35,9 +35,9 @@ namespace ServerCore.Networking.Packets
         /// <param name="ip">The IP address of the message server.</param>
         /// <param name="port">The port of the message server.</param>
         public MsgConnectEx(uint identity, uint authentication, string ip, int port)
-            : base(32)
+            : base(52)
         {
-            WriteHeader(32, PacketType.MSG_CONNECT_EX);
+            WriteHeader(52, PacketType.MSG_CONNECT_EX);
             Identity = identity;
             Authentication = authentication;
             IPAddress = ip;
@@ -74,8 +74,8 @@ namespace ServerCore.Networking.Packets
         /// <summary> Offset 20 - The IP address of the message server. </summary>
         public string IPAddress
         {
-            get { return ReadString(20, 12); }
-            set { WriteString(value, 20, 12); }
+            get { return ReadString(32, 20); }
+            set { WriteString(value, 32, 20); }
         }
     }
 }
